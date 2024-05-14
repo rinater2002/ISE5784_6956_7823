@@ -1,10 +1,10 @@
+package test;
+
 import static java.lang.System.out;
 
-import static primitives.Util.isZero;
+import static Primitives.Util.isZero;
 
-import Primitives.Point;
-import Primitives.Vector;
-import primitives.*;
+import Primitives.*;
 
 /**
  * Test program for the 1st stage
