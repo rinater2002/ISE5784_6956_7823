@@ -1,6 +1,12 @@
 package Primitives;
 
 public class Vector extends Point {
+    /**
+     *constructor
+     * @param x coordinate value for x axis
+     * @param y coordinate value for y axis
+     * @param z coordinate value for z axis
+     */
     public Vector(double x, double y, double z) {
         super(x, y, z);
         if (xyz.equals(Double3.ZERO)) {
@@ -19,6 +25,7 @@ public class Vector extends Point {
     public Vector add(Vector v) {
         return new Vector(this.xyz.add(v.xyz));
     }
+
 
     // Scalar multiplication
     public Vector scale(double scalar) {

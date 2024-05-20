@@ -7,6 +7,12 @@ import static Primitives.Util.isZero;
 public class Point {
     public static final Point ZERO = new Point(Double3.ZERO);
     final protected Primitives.Double3 xyz;
+    /**
+     *another constructor
+     * @param x coordinate value for x axis
+     * @param y coordinate value for y axis
+     * @param z coordinate value for z axis
+     */
     public Point(double x, double y, double z) {
         xyz = new Double3(x,y,z);
     }
@@ -29,21 +35,22 @@ public class Point {
                 ", z=" + xyz.d3 +
                 '}';
     }
+    //vector subtraction
     public Vector subtract(Point p1) {
         return new Vector(xyz.subtract(p1.xyz));
     }
-
+    // Adding a vector to a point
     public Point add(Vector v1) {
         return new Point(xyz.add(v1.xyz));
     }
-
+   //The distance between 2 points in a square
     public double distanceSquared(Point p1) {
         double dx = xyz.d1 - p1.xyz.d1;
         double dy = xyz.d2 - p1.xyz.d2;
         double dz = xyz.d3 - p1.xyz.d3;
         return dx * dx + dy * dy + dz * dz;
     }
-
+    //The distance between 2 points
     public double distance(Point p1) {
         return Math.sqrt(distanceSquared(p1));
     }
