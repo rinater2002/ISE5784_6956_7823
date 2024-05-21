@@ -79,7 +79,11 @@ public class Polygon implements Geometry {
             throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
       }
    }
-
+   /**
+    * Getter for the normal vector at a specific point on the plane.
+    * @param point a point on the plane
+    * @return the normal vector of the plane
+    */
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
 

@@ -1,43 +1,65 @@
 package Primitives;
 
 public class Vector extends Point {
+
     /**
-     *constructor
+     * Constructor for Vector with individual coordinates
      * @param x coordinate value for x axis
      * @param y coordinate value for y axis
      * @param z coordinate value for z axis
+     * @throws IllegalArgumentException if the vector is zero
      */
     public Vector(double x, double y, double z) {
-        super(x, y, z);
+        super(x, y, z); // Call to the superclass constructor (Point)
         if (xyz.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Cannot create a zero vector");
         }
     }
 
+    /**
+     * Constructor for Vector with a Double3 object
+     * @param double3 a Double3 object representing the coordinates
+     * @throws IllegalArgumentException if the vector is zero
+     */
     public Vector(Double3 double3) {
-        super(double3);
+        super(double3); // Call to the superclass constructor (Point)
         if (xyz.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Cannot create a zero vector");
         }
     }
 
-    // Vector addition
+    /**
+     * Adds another vector to this vector
+     * @param v the vector to be added
+     * @return a new vector which is the sum of this vector and the given vector
+     */
     public Vector add(Vector v) {
-        return new Vector(this.xyz.add(v.xyz));
+        return new Vector(this.xyz.add(v.xyz)); // Vector addition
     }
 
-
-    // Scalar multiplication
+    /**
+     * Scales this vector by a scalar value
+     * @param scalar the scalar value to scale the vector
+     * @return a new vector which is this vector scaled by the given scalar
+     */
     public Vector scale(double scalar) {
-        return new Vector(this.xyz.scale(scalar));
+        return new Vector(this.xyz.scale(scalar)); // Scalar multiplication
     }
 
-    // Dot product
+    /**
+     * Computes the dot product of this vector and another vector
+     * @param v the other vector
+     * @return the dot product of the two vectors
+     */
     public double dotProduct(Vector v) {
         return this.xyz.d1 * v.xyz.d1 + this.xyz.d2 * v.xyz.d2 + this.xyz.d3 * v.xyz.d3;
     }
 
-    // Cross product
+    /**
+     * Computes the cross product of this vector and another vector
+     * @param v the other vector
+     * @return a new vector which is the cross product of this vector and the given vector
+     */
     public Vector crossProduct(Vector v) {
         double x = this.xyz.d2 * v.xyz.d3 - this.xyz.d3 * v.xyz.d2;
         double y = this.xyz.d3 * v.xyz.d1 - this.xyz.d1 * v.xyz.d3;
@@ -45,24 +67,32 @@ public class Vector extends Point {
         return new Vector(x, y, z);
     }
 
-    // Length squared
+    /**
+     * Computes the squared length of this vector
+     * @return the squared length of this vector
+     */
     public double lengthSquared() {
-        return this.dotProduct(this);
+        return this.dotProduct(this); // Length squared
     }
 
-    // Length
+    /**
+     * Computes the length of this vector
+     * @return the length of this vector
+     */
     public double length() {
-        return Math.sqrt(lengthSquared());
+        return Math.sqrt(lengthSquared()); // Length
     }
 
-    // Normalize vector
+    /**
+     * Normalizes this vector
+     * @return a new vector which is the normalized version of this vector
+     * @throws IllegalArgumentException if the vector is zero
+     */
     public Vector normalize() {
         double length = length();
         if (length == 0) {
             throw new IllegalArgumentException("Cannot normalize a zero vector");
         }
-        return this.scale(1 / length);
+        return this.scale(1 / length); // Normalize vector
     }
 }
-
-
