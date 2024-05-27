@@ -19,7 +19,14 @@ public class PolygonTest{
      */
     private final double DELTA = 0.000001;
 
-    /** Test method for {@link geometries.Polygon#Polygon(Primitives.Point...)}. */
+    /**
+     * Test method for {@link geometries.Polygon#Polygon(Primitives.Point...)}.
+     * This method tests the constructor of the Polygon class.
+     * It checks if the constructor creates a polygon correctly with given vertices.
+     * The vertices should form a convex polygon and be in the same plane.
+     * If the vertices are not in the correct order, not in the same plane, or form a concave polygon,
+     * the constructor should throw an IllegalArgumentException.
+     */
     @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
@@ -75,7 +82,12 @@ public class PolygonTest{
 
     }
 
-    /** Test method for {@link geometries.Polygon#getNormal(Primitives.Point)}. */
+    /**
+     * Test method for {@link geometries.Polygon#getNormal(Primitives.Point)}.
+     * This method tests the getNormal() method of the Polygon class.
+     * It checks if the method returns the correct normal vector to the polygon at a given point.
+     * The length of the normal vector should be 1, and it should be orthogonal to all the edges of the polygon.
+     */
     @Test
     public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
