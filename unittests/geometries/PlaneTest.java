@@ -8,7 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlaneTest {
     /**
-     * Test method for {@link Plane#Plane(Point, Point, Point)}
+     * Test method for {@link Plane#Plane(Point, Point, Point)}.
+     * This method tests the constructor of the Plane class.
+     * It checks if the constructor creates a plane correctly with three non-collinear points.
+     * If the points are collinear or any two points are the same, the constructor should throw an IllegalArgumentException.
      */
     void testConstructor() {
 
@@ -32,7 +35,12 @@ class PlaneTest {
                 "Constructed a plane with tow equal points");
     }
 
-
+    /**
+     * Test method for {@link Plane#getNormal(Point)}.
+     * This method tests the getNormal() method of the Plane class.
+     * It checks if the method returns the correct normal vector to the plane at a given point.
+     * The length of the normal vector should be 1.
+     */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
