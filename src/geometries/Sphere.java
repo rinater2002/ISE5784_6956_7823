@@ -7,6 +7,8 @@ public class Sphere {
 
     /** A point that represents the center of the sphere*/
     final Point _center ;
+
+    /** The radius of the sphere */
     final double radius;
     /**
      * constructor
@@ -26,11 +28,14 @@ public class Sphere {
         return _center;
     }
 
+    /**
+     * Returns the normal vector to the sphere at a given point.
+     * The normal is calculated as the normalized vector from the sphere's center to the given point.
+     *
+     * @param p0 The point on the sphere where the normal is to be calculated.
+     * @return The normal vector to the sphere at the given point.
+     */
     public Vector getNormal(Point p0) {
         return p0.subtract(_center).normalize();    }
 
-    @Override
-    public String toString() {
-        return "Sphere{" + "\ncenter=" + _center + "\nradius=" + radius + "\n}";
-    }
 }

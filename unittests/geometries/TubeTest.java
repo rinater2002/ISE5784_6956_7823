@@ -8,16 +8,27 @@ import Primitives.Ray;
 import Primitives.Vector;
 class TubeTest {
 
-
+    /**
+     * Test method for {@link geometries.Tube#getNormal(Point)}.
+     * Tests the getNormal method of the Tube class with a normal case.
+     */
     @Test
     void testGetNormal() {
-        // ============ Equivalence Partitions Tests ==============
-        // TC01: There is a simple single test here
-        Ray ray = new Ray(new Point(1, 2, 3), new Vector(2, 3, 4));
-        Tube tube = new Tube(3, ray);
-        Point point = new Point(1, 1, 3);
-        double a=Math.sqrt(244);
-        assertEquals(new Vector(6/a, 8/a, 12/a), tube.getNormal(point),
-                "Error: Tube getNormal not returning correct value");
+// ============ Equivalence Partitions Tests ==============
+// Create a ray and a tube
+        Ray ray = new Ray(new Point(0,1,0), new Vector(0,1,0));
+        Tube tb = new Tube(3, ray);
+
+// Test the getNormal method with a specific point
+        //TC01: simple test
+        assertEquals(tb.getNormal(new Point(3,0,0)), new Vector(1,0,0),
+                "Normal abnormality");
+
+// =============== Boundary Values Tests ==================
+// Test when connecting the point to the horn head of the cylinder axis produces a right angle with the axis
+        Tube tube = new Tube(2, new Ray(new Point(0,1,0), new Vector(0,1,0)));
+        //TC10: The point in front of the head of the foundation
+        assertEquals(tube.getNormal(new Point(2,1,0)), new Vector(1,0,0),
+                "The point in front of the head of the foundation");
     }
 }
