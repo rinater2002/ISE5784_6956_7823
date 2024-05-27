@@ -7,23 +7,23 @@ import static Primitives.Util.isZero;
 
 public class Tube {
     public double radius;
-    final Ray _ray;
+    final Ray ray;
 
     /**
      * constructor
      * @param radius type double
-     * @param ray type ray
+     * @param ray1 type ray
      */
 
-    public Tube(double radius, Ray ray) {
+    public Tube(double radius, Ray ray1) {
 
         this.radius = radius;
-        _ray = ray;
+        ray = ray1;
     }
 
     public Vector getNormal(Point point) {
-        Point head = _ray.getHead();
-        Vector v = _ray.getDirection();
+        Point head = ray.getHead();
+        Vector v = ray.getDirection();
         Vector head_p = point.subtract(head);
 
         double w = v.dotProduct(head_p);
