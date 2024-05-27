@@ -16,6 +16,7 @@ public class Tube {
      */
 
     public Tube(double radius, Ray ray) {
+
         this.radius = radius;
         _ray = ray;
     }
