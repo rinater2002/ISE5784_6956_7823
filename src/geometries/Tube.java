@@ -16,8 +16,25 @@ public class Tube {
      */
 
     public Tube(double radius, Ray ray) {
+
         this.radius = radius;
         _ray = ray;
+    }
+
+    public Vector getNormal(Point point) {
+        Point head = _ray.getHead();
+        Vector v = _ray.getDirection();
+        Vector head_p = point.subtract(head);
+
+        double w = v.dotProduct(head_p);
+
+        if (isZero(w)) {
+            return head_p;
+        }
+
+        Point startP = head.add(v.scale(w));
+        Vector n = point.subtract(startP);
+        return n.normalize();
     }
 
 }
