@@ -3,10 +3,20 @@ package geometries;
 import Primitives.Point;
 import Primitives.Vector;
 
+/**
+ * plane class is a polygon represented by a point and a vector
+ */
 public class Plane implements Geometry {
 
-    protected Point q; // A point on the plane
-    protected Vector normal; // The normal vector to the plane
+    /**
+     * A point that is on the plane
+     */
+    protected Point q;
+
+    /**
+     * A vector that is vertical to the plane
+     */
+    protected Vector normal;
 
     /**
      * Constructor for Plane using three points.
@@ -34,6 +44,15 @@ public class Plane implements Geometry {
     public Plane(Point point, Vector normal) {
         this.q = point; // Set the reference point
         this.normal = normal.normalize(); // Normalize and set the normal vector
+    }
+
+    /**
+     * getting the point that is on the plane
+     *
+     * @return the point
+     */
+    public Point getQ() {
+        return q;
     }
 
     /**

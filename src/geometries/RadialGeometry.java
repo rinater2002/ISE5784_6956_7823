@@ -15,4 +15,12 @@ public abstract class RadialGeometry implements Geometry {
         this.radius = radius;
     }
 
+    /** getting the radius of geometry
+     * @return the radius
+     */
+    public double getRadius() {
+        return radius;
+    }
+
+
 }
