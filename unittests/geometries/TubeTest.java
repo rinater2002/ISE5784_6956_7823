@@ -13,7 +13,8 @@ class TubeTest {
      * Tests the getNormal method of the Tube class with a normal case.
      */
     @Test
-    void testGetNormal() {
+    void testGetNormal()
+    {
 // ============ Equivalence Partitions Tests ==============
 // Create a ray and a tube
         Ray ray = new Ray(new Point(0,1,0), new Vector(0,1,0));
