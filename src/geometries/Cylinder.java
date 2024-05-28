@@ -23,15 +23,15 @@ public class Cylinder extends Tube{
     public Vector getNormal(Point p0) {
         // Check that surface point is different from head of axisRay to avoid creating
         // a zero vector
-        if (p0.equals(_ray.getHead()))
-            return _ray.getDirection().normalize().scale(-1);
+        if (p0.equals(ray.getHead()))
+            return ray.getDirection().normalize().scale(-1);
         // Finding the nearest point to the given point that is on the axis ray
-        double t = _ray.getDirection().dotProduct(p0.subtract(_ray.getHead()));
+        double t = ray.getDirection().dotProduct(p0.subtract(ray.getHead()));
         // Finds out if surface point is on a base and returns a normal appropriately
         if (t == 0)
-            return _ray.getDirection().normalize().scale(-1);
+            return ray.getDirection().normalize().scale(-1);
         if (t == height)
-            return _ray.getDirection().normalize();
+            return ray.getDirection().normalize();
         // If surface point is on the side of the cylinder, the superclass (Tube) is
         // used to find the normal
         return super.getNormal(p0);
