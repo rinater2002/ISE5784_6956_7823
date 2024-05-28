@@ -27,12 +27,12 @@ class PlaneTest {
         // TC01: first point and second point are same
         assertThrows(IllegalArgumentException.class,
                 () -> new Plane(new Point(1, 1, 1), new Point(1, 1, 1), new Point(1, 2, 1)),
-                "Constructed a plane with tow equal points");
+                "Constructed a plane with two equal points");
         // TC02: three point are on the same line
         assertThrows(IllegalArgumentException.class,
                 () -> new Plane(new Point(2, 1, 0), new Point(5, 0, 3),
                         new Point(3.5, 0.5, 1.5)),
-                "Constructed a plane with tow equal points");
+                "Constructed a plane with two equal points");
     }
 
     /**

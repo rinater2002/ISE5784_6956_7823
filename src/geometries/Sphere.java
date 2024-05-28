@@ -6,17 +6,17 @@ import Primitives.Vector;
 public class Sphere {
 
     /** A point that represents the center of the sphere*/
-    final Point _center ;
+    final Point center;
 
     /** The radius of the sphere */
     final double radius;
     /**
      * constructor
-     * @param center type point
+     * @param center1 type point
      * @param radius type double
      */
-    public Sphere(Point center, double radius) {
-        _center = center;
+    public Sphere(Point center1, double radius) {
+        center = center1;
         this.radius = radius;
     }
     /**
@@ -25,7 +25,7 @@ public class Sphere {
      * @return The center point of the sphere.
      */
     public Point getCenter() {
-        return _center;
+        return center;
     }
 
     /**
@@ -36,6 +36,6 @@ public class Sphere {
      * @return The normal vector to the sphere at the given point.
      */
     public Vector getNormal(Point p0) {
-        return p0.subtract(_center).normalize();    }
+        return p0.subtract(center).normalize();    }
 
 }
