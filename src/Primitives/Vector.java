@@ -18,12 +18,12 @@ public class Vector extends Point {
 
     /**
      * Constructor for Vector with a Double3 object
-     * @param double3 a Double3 object representing the coordinates
+     * @param xyz a Double3 object representing the coordinates
      * @throws IllegalArgumentException if the vector is zero
      */
-    public Vector(Double3 double3) {
-        super(double3); // Call to the superclass constructor (Point)
-        if (xyz.equals(Double3.ZERO)) {
+    public Vector(Double3 xyz) {
+        super(xyz); // Call to the superclass constructor (Point)
+        if (this.xyz.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Cannot create a zero vector");
         }
     }
@@ -90,9 +90,6 @@ public class Vector extends Point {
      */
     public Vector normalize() {
         double length = length();
-        if (length == 0) {
-            throw new IllegalArgumentException("Cannot normalize a zero vector");
-        }
-        return this.scale(1 / length); // Normalize vector
+        return new Vector(xyz.reduce(length)); // Normalize vector
     }
 }

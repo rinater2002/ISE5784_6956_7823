@@ -5,7 +5,7 @@ import static Primitives.Util.isZero;
 
 public class Point {
     public static final Point ZERO = new Point(Double3.ZERO); // A constant representing the origin point (0, 0, 0)
-    final protected Primitives.Double3 xyz; // Coordinates of the point
+    final protected Double3 xyz; // Coordinates of the point
 
     /**
      * Constructor for Point with individual coordinates
