@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class PointTest {
 
-    Point p = new Point(1.0, 1.0, 1.0);
+    public static final double DELTA = 1.0E-4;
+    Point p111 = new Point(1.0, 1.0, 1.0);
 
     /**
      * Test method for {@link Primitives.Point#subtract(Point)} .
@@ -21,11 +22,11 @@ class PointTest {
     @Test
     void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
-        assertEquals(this.p, (new Point(2.0, 3.0, 4.0)).subtract(new Point(1.0, 2.0, 3.0)), "Wrong point subtract");
+        assertEquals(p111, (new Point(2.0, 3.0, 4.0)).subtract(new Point(1.0, 2.0, 3.0)), "Wrong point subtract");
 
         // =============== Boundary Values Tests ==================
         assertThrows(IllegalArgumentException.class, () -> {
-            this.p.subtract(this.p);
+            this.p111.subtract(this.p111);
         }, "Subtract P from P must throw exception");
     }
 
@@ -38,7 +39,10 @@ class PointTest {
     @Test
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============
-        assertEquals(new Point(2.0, 3.0, 4.0), this.p.add(new Vector(1.0, 2.0, 3.0)), "Wrong point add");
+        assertEquals(
+                new Point(2.0, 3.0, 4.0),
+                p111.add(new Vector(1.0, 2.0, 3.0)),
+                "Wrong point add");
     }
 
     /**
@@ -51,9 +55,12 @@ class PointTest {
     @Test
     void testDistanceSquared() {
         // ============ Equivalence Partitions Tests ==============
-        assertEquals(14.0, this.p.distanceSquared(new Point(2.0, 3.0, 4.0)), 1.0E-4, "Wrong squared distance between the point and itself");
+        assertEquals(14.0,
+                p111.distanceSquared(new Point(2.0, 3.0, 4.0)),
+                DELTA,
+                "Wrong squared distance between the point and itself");
         // =============== Boundary Values Tests ==================
-        assertEquals(0.0, (new Point(1.0, 2.0, 3.0)).distanceSquared(new Point(1.0, 2.0, 3.0)), 1.0E-4, "Wrong squared distance between the point and itself");
+        assertEquals(0.0, (new Point(1.0, 2.0, 3.0)).distanceSquared(new Point(1.0, 2.0, 3.0)), DELTA, "Wrong squared distance between the point and itself");
     }
 
     /**
@@ -67,10 +74,13 @@ class PointTest {
     @Test
     void testDistance() {
         // ============ Equivalence Partitions Tests ==============
-        assertEquals(Math.sqrt(14.0), this.p.distance(new Point(2.0, 3.0, 4.0)), 1.0E-4, "Wrong distance between the point and another point");
+        assertEquals(3, this.p111.distance(new Point(1.0, 1.0, 4.0)), DELTA, "Wrong distance between the point and another point");
 
         // =============== Boundary Values Tests ==================
-        assertEquals(0.0, (new Point(1.0, 2.0, 3.0)).distance(new Point(1.0, 2.0, 3.0)), 1.0E-4, "Wrong distance between the point and itself");
+        assertEquals(0.0,
+                (new Point(1.0, 2.0, 3.0)).distance(new Point(1.0, 2.0, 3.0)),
+                DELTA,
+                "Wrong distance between the point and itself");
     }
 
 }
