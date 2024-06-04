@@ -1,7 +1,10 @@
 package geometries;
 
 import Primitives.Point;
+import Primitives.Ray;
 import Primitives.Vector;
+
+import java.util.List;
 
 /**
  * plane class is a polygon represented by a point and a vector
@@ -71,6 +74,11 @@ public class Plane implements Geometry {
     @Override
     public Vector getNormal(Point point) {
         return this.normal; // Return the normal vector (same for all points on the plane)
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 
     /**

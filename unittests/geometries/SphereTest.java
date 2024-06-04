@@ -22,4 +22,5 @@ class SphereTest {
         Vector e1 = s1.getNormal(new Point(2, 2, 3));
         assertEquals(new Vector(1, 0, 0), e1, "getNormal() wrong result");
     }
+
 }

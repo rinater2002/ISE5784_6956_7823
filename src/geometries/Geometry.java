@@ -6,7 +6,7 @@ import Primitives.Vector;
  * Interface for geometric objects in a 3D space.
  * Provides a method to get the normal vector at a given point on the geometry.
  */
-public interface Geometry {
+public interface Geometry extends intersectable{
 
     /**
      * Calculates the normal vector to the geometry at the given point.

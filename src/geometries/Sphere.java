@@ -1,9 +1,12 @@
 package geometries;
 import Primitives.Point;
 import Primitives.Vector;
+import Primitives.Ray;
+
+import java.util.List;
 
 /** sphere class is a polygon represented by a point and a radius*/
-public class Sphere {
+public class Sphere implements Geometry {
 
     /** A point that represents the center of the sphere*/
     final Point center ;
@@ -32,5 +35,10 @@ public class Sphere {
     @Override
     public String toString() {
         return "Sphere{" + "\ncenter=" + center + "\nradius=" + radius + "\n}";
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }
