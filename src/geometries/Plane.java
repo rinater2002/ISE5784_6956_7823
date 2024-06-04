@@ -6,6 +6,9 @@ import Primitives.Vector;
 
 import java.util.List;
 
+import static Primitives.Util.alignZero;
+import static Primitives.Util.isZero;
+
 /**
  * plane class is a polygon represented by a point and a vector
  */
@@ -78,7 +81,33 @@ public class Plane implements Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+
+        Point P0 = ray.getHead();
+        Vector v = ray.getDirection();
+        Vector n = normal;
+
+        if (q.equals(P0)) {//if start of ray equal to q0
+            return null;
+        }
+        Vector P0_Q0 = q.subtract(P0);
+        //numerator
+        double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
+        if (isZero(nP0Q0)) {
+            return null;
+        }
+        //denominator
+        double nv = alignZero(n.dotProduct(v));
+        // ray is lying in the plane axis
+        if (isZero(nv)) {
+            return null;
+        }
+        double t = alignZero(nP0Q0 / nv);
+        if (t <= 0) {
+            return null;
+        }
+        Point point = P0.add(v.scale(t));
+        return List.of(point);
+
     }
 
     /**

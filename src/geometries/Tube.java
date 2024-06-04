@@ -3,9 +3,11 @@ import Primitives.Point;
 import Primitives.Ray;
 import Primitives.Vector;
 
+import java.util.List;
+
 import static Primitives.Util.isZero;
 
-public class Tube {
+public class Tube extends RadialGeometry {
     public double radius;
     final Ray ray;
 
@@ -16,6 +18,7 @@ public class Tube {
      */
 
     public Tube(double radius, Ray ray1) {
+        super(radius);
 
         this.radius = radius;
         ray = ray1;
@@ -41,6 +44,10 @@ public class Tube {
         Point startP = head.add(v.scale(w));
         Vector n = point.subtract(startP);
         return n.normalize();
+    }
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 
 }

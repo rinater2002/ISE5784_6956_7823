@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit tests for {@link Vector} class.
  */
 class VectorTest {
+    public static final double DELTA = 0.00001;
     Vector v1 = new Vector(1, 2, 3);
     Vector v2 = new Vector(-2, -4, -6);
     Vector v3 = new Vector(0, 3, -2);
@@ -23,7 +24,7 @@ class VectorTest {
         Vector v2         = new Vector(-2, -4, -6);
 
         // ============ Equivalence Partitions Tests ==============
-        assertEquals(new Vector(-1, -2, -3), v1.add(v2));
+        assertEquals(new Vector(-1, -2, -3), v1.add(v2),"Vector adding not correct");
 
         // =============== Boundary Values Tests ==================
         assertThrows(IllegalArgumentException.class,
@@ -60,11 +61,13 @@ class VectorTest {
     void testDotProduct() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Simple dotProduct test
-        assertTrue(isZero(v1.dotProduct(v2) + 28),
+        assertEquals(-28,
+                v1.dotProduct(v2),
+                DELTA,
                 "ERROR: dotProduct() wrong value");
         // =============== Boundary Values Tests ==================
         // TC1: dotProduct for orthogonal vectors
-        assertEquals(0d, v1.dotProduct(v3), 0.00001,
+        assertEquals(0d, v1.dotProduct(v3), DELTA,
                 "dotProduct() for orthogonal vectors is not zero");
     }
 
@@ -76,7 +79,7 @@ class VectorTest {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
         Vector vr = v1.crossProduct(v3);
-        assertEquals(v1.length() * v3.length(), vr.length(), 0.00001,
+        assertEquals(v1.length() * v3.length(), vr.length(), DELTA,
                 "crossProduct() wrong result length");
 
         // TC02: Test cross-product result orthogonality to its operands
@@ -98,7 +101,7 @@ class VectorTest {
     void testLengthSquared() {
         // ============ Equivalence Partitions Tests ==============
         // TC01:  check length square of vector
-        assertEquals(14, v1.lengthSquared(), 0.00001,
+        assertEquals(14, v1.lengthSquared(), DELTA,
                 "ERROR: lengthSquared() wrong value");
     }
 
@@ -122,7 +125,7 @@ class VectorTest {
         Vector n = v.normalize();
         // ============ Equivalence Partitions Tests ==============
         // TC01: Simple test
-        assertEquals(1d, n.lengthSquared(), 0.00001, "wrong normalized vector length");
+        assertEquals(1d, n.lengthSquared(), DELTA, "wrong normalized vector length");
         assertEquals(new Vector(0, 0.6, 0.8), n, "wrong normalized vector");
     }
 }

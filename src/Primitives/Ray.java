@@ -1,5 +1,7 @@
 package Primitives;
 
+import static Primitives.Util.isZero;
+
 public class Ray {
     private final Point head; // Starting point of the ray
     private final Vector direction; // Direction vector of the ray
@@ -48,5 +50,11 @@ public class Ray {
 
     public Vector getDirection() {
         return direction;
+    }
+    public Point getPoint(double delta ) {
+        if (isZero(delta)) {
+            return head;
+        }
+        return head.add(direction.normalize().scale(delta));
     }
 }

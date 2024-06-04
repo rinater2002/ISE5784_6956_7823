@@ -14,13 +14,24 @@ public class Geometries implements intersectable {
        add(geometries);
     }
 
-    private void add(intersectable... geometries) {
+    public void add(intersectable... geometries) {
         Collections.addAll(this.geometries,geometries);
     }
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+        if (this.geometries.isEmpty()) return null; // if have no intersections
+        List<Point> result = null;
+        for (var item: this.geometries) { //for all geometries in the list
+            List<Point> itemList = item.findIntersections(ray);
+            if(itemList!=null) {
+                if(result==null) {
+                    result=new LinkedList<Point>();
+                }
+                result.addAll(itemList);
+            }
+        }
+        return result;
     }
 
 }

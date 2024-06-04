@@ -25,6 +25,14 @@ public class Point {
         this.xyz = xyz; // Initialize xyz with the given Double3 object
     }
 
+    public double getX() {
+        return xyz.d1;
+    }
+
+    public double getY() {
+        return xyz.d2;
+    }
+
     /**
      * Override equals method to compare two Point objects
      * @param obj The object to compare with
