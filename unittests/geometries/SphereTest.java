@@ -24,6 +24,12 @@ class SphereTest {
         Vector e1 = s1.getNormal(new Point(2, 2, 3));
         assertEquals(new Vector(1, 0, 0), e1, "getNormal() wrong result");
     }
+
+    /**
+     * Test method for {@link geometries.Sphere#findIntersections(Primitives.Ray)}.
+     * This method tests the findIntersections() method of the Sphere class.
+     * It checks if the method returns the correct intersection points between a ray and the sphere.
+     */
     @org.junit.jupiter.api.Test
     public void testFindIntersections() {
         Sphere sphere = new Sphere(new Point (1, 0, 0), 1.0);

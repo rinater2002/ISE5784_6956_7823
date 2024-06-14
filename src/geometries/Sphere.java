@@ -1,4 +1,5 @@
 package geometries;
+
 import Primitives.Point;
 import Primitives.Vector;
 import Primitives.Ray;
@@ -7,20 +8,23 @@ import java.util.List;
 
 import static Primitives.Util.alignZero;
 
-/** sphere class is a polygon represented by a point and a radius*/
+/**
+ * The {@code Sphere} class represents a sphere in 3D space, defined by a center
+ * point and a radius. This class implements the {@code Geometry} interface.
+ */
 public class Sphere implements Geometry {
 
-    /**
-     * A point that represents the center of the sphere
-     */
+    /** The center point of the sphere. */
     final Point center;
+
+    /** The radius of the sphere. */
     final double radius;
 
     /**
-     * constructor
+     * Constructs a sphere with the specified center point and radius.
      *
-     * @param center1 type point
-     * @param radius  type double
+     * @param center1 the center point of the sphere
+     * @param radius the radius of the sphere
      */
     public Sphere(Point center1, double radius) {
         center = center1;
@@ -30,35 +34,53 @@ public class Sphere implements Geometry {
     /**
      * Returns the center point of the sphere.
      *
-     * @return The center point of the sphere.
+     * @return the center point of the sphere
      */
     public Point getCenter() {
         return center;
     }
 
+    /**
+     * Calculates the normal vector to the sphere at a given point.
+     *
+     * @param p0 the point on the surface of the sphere
+     * @return the normal vector to the sphere at the given point
+     */
     public Vector getNormal(Point p0) {
         return p0.subtract(center).normalize();
     }
 
+    /**
+     * Returns a string representation of the sphere.
+     *
+     * @return a string representation of the sphere
+     */
     @Override
     public String toString() {
         return "Sphere{" + "\ncenter=" + center + "\nradius=" + radius + "\n}";
     }
 
+    /**
+     * Finds all intersection points between a given ray and the sphere.
+     *
+     * @param ray the ray for which to find intersections
+     * @return a list of intersection points, which may be empty if no intersections
+     * are found; {@code null} if there are no intersections
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
-        Point P0 = ray.getHead();        //get point of start ray
-        Vector v = ray.getDirection();      //get dir of ray
+        Point P0 = ray.getHead();        // Get the start point of the ray
+        Vector v = ray.getDirection();   // Get the direction of the ray
 
-        if (P0.equals(center)) {    //if start of ray equal to the sphere's center
+        if (P0.equals(center)) { // If the start of the ray is the sphere's center
             return List.of(center.add(v.scale(radius)));
         }
 
         Vector U = center.subtract(P0);
-
         double tm = alignZero(v.dotProduct(U));
         double d = alignZero(Math.sqrt(U.lengthSquared() - tm * tm));
-        // no intersections : the ray direction is above the sphere
+
+        // No intersections: the ray direction is above the sphere
         if (d >= radius) {
             return null;
         }
@@ -81,6 +103,5 @@ public class Sphere implements Geometry {
             return List.of(P2);
         }
         return null;
-
     }
 }

@@ -57,6 +57,13 @@ class PlaneTest {
         // TC02: the test check if the length of normal different from 1
         assertEquals(1, plane.getNormal().length(), "ERROR: the length different from 1");
     }
+
+    /**
+     * Test method for {@link Plane#findIntersections(Ray)}.
+     * This method tests the findIntersections() method of the Plane class.
+     * It checks if the method returns the correct intersection points between a ray and the plane.
+     */
+    @Test
     void testfindIntsersections() {
         Plane pl = new Plane(new Point(0, 0, 1), new Vector(1, 1, 1));
         // ============ Equivalence Partitions Tests ==============

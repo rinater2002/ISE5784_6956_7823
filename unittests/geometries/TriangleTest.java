@@ -28,6 +28,12 @@ class TriangleTest {
         //TC01: simple test
         assertEquals(n, triangle.getNormal(point), "Triangle's normal is not correct");
     }
+
+    /**
+     * Test method for {@link geometries.Triangle#findIntersections(Primitives.Ray)}.
+     * This method tests the findIntersections() method of the Triangle class.
+     * It checks if the method returns the correct intersection points between a ray and the triangle.
+     */
     @org.junit.jupiter.api.Test
     void testFindIntersections() {
 
