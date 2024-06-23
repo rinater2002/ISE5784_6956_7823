@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import geometries.Polygon;
-import Primitives.Point;
-import Primitives.Vector;
+import primitives.Point;
+import primitives.Vector;
 
 /**
  * Testing Polygons
@@ -20,7 +19,7 @@ public class PolygonTest{
     private final double DELTA = 0.000001;
 
     /**
-     * Test method for {@link geometries.Polygon#Polygon(Primitives.Point...)}.
+     * Test method for {@link geometries.Polygon#Polygon(primitives.Point...)}.
      * This method tests the constructor of the Polygon class.
      * It checks if the constructor creates a polygon correctly with given vertices.
      * The vertices should form a convex polygon and be in the same plane.
@@ -83,7 +82,7 @@ public class PolygonTest{
     }
 
     /**
-     * Test method for {@link geometries.Polygon#getNormal(Primitives.Point)}.
+     * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
      * This method tests the getNormal() method of the Polygon class.
      * It checks if the method returns the correct normal vector to the polygon at a given point.
      * The length of the normal vector should be 1, and it should be orthogonal to all the edges of the polygon.

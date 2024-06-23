@@ -1,13 +1,13 @@
 package geometries;
 
-import Primitives.Point;
-import Primitives.Ray;
-import Primitives.Vector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
-import static Primitives.Util.alignZero;
-import static Primitives.Util.isZero;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * plane class is a polygon represented by a point and a vector

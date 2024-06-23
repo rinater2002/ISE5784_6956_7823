@@ -1,6 +1,6 @@
-package Primitives;
+package primitives;
 
-import static Primitives.Util.isZero;
+import static primitives.Util.isZero;
 
 public class Ray {
     private final Point head; // Starting point of the ray

@@ -1,7 +1,4 @@
-package Primitives;
-
-import Primitives.Double3;
-import static Primitives.Util.isZero;
+package primitives;
 
 public class Point {
     public static final Point ZERO = new Point(Double3.ZERO); // A constant representing the origin point (0, 0, 0)

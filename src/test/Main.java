@@ -2,9 +2,9 @@ package test;
 
 import static java.lang.System.out;
 
-import static Primitives.Util.isZero;
+import static primitives.Util.isZero;
 
-import Primitives.*;
+import primitives.*;
 /**Rinat Ehrenfreund 213527823 rinater2002@gmail.com
 Tiferret Sonnenberg  212886956 tiffsonnenberg@gmail.com
  /**

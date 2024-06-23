@@ -1,8 +1,8 @@
 package geometries;
 
-import Primitives.Point;
-import Primitives.Ray;
-import Primitives.Vector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

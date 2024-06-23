@@ -1,12 +1,12 @@
 package geometries;
 
-import Primitives.Point;
-import Primitives.Vector;
-import Primitives.Ray;
+import primitives.Point;
+import primitives.Vector;
+import primitives.Ray;
 
 import java.util.List;
 
-import static Primitives.Util.alignZero;
+import static primitives.Util.alignZero;
 
 /**
  * The {@code Sphere} class represents a sphere in 3D space, defined by a center

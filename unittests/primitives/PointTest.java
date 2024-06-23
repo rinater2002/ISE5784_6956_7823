@@ -1,4 +1,4 @@
-package Primitives;
+package primitives;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ class PointTest {
     Point p111 = new Point(1.0, 1.0, 1.0);
 
     /**
-     * Test method for {@link Primitives.Point#subtract(Point)} .
+     * Test method for {@link primitives.Point#subtract(Point)} .
      *      This method tests the subtract() method of the Point class.
      *      It checks if the method returns the correct Point after subtracting another Point from it.
      *      If the result is incorrect, the test fails.
@@ -31,7 +31,7 @@ class PointTest {
     }
 
     /**
-     *  Test method for {@link Primitives.Point#add(Primitives.Vector)}.
+     *  Test method for {@link primitives.Point#add(primitives.Vector)}.
      *      This method tests the add() method of the Point class.
      *      It checks if the method returns the correct Point after adding a Vector to it.
      *      If the result is incorrect, the test fails.
@@ -46,7 +46,7 @@ class PointTest {
     }
 
     /**
-     *      Test method for {@link Primitives.Point#distanceSquared(Point)} .
+     *      Test method for {@link primitives.Point#distanceSquared(Point)} .
      *      This method tests the distanceSquared() method of the Point class.
      *      It checks if the method returns the correct squared distance between the Point and another Point.
      *      If the result is incorrect, the test fails.
@@ -64,7 +64,7 @@ class PointTest {
     }
 
     /**
-     * Test method for {@link Primitives.Point#distance(Point)}.
+     * Test method for {@link primitives.Point#distance(Point)}.
      * This method tests the distance() method of the Point class.
      * It checks if the method returns the correct distance between the Point and another Point.
      * If the result is incorrect, the test fails.

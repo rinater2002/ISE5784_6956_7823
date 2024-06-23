@@ -1,5 +1,5 @@
 package geometries;
-import Primitives.*;
+import primitives.*;
 
 public class Cylinder extends Tube{
     public double height;

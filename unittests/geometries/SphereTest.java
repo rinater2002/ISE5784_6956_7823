@@ -1,6 +1,6 @@
 package geometries;
 
-import Primitives.*;
+import primitives.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SphereTest {
 
     /**
-     * Test method for {@link geometries.Sphere#getNormal(Primitives.Point)}.
+     * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}.
      * This method tests the getNormal() method of the Sphere class.
      * It checks if the method returns the correct normal vector to the sphere at a given point on its surface.
      * The normal vector should point from the center of the sphere to the point on the surface.
@@ -26,7 +26,7 @@ class SphereTest {
     }
 
     /**
-     * Test method for {@link geometries.Sphere#findIntersections(Primitives.Ray)}.
+     * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
      * This method tests the findIntersections() method of the Sphere class.
      * It checks if the method returns the correct intersection points between a ray and the sphere.
      */

@@ -1,8 +1,8 @@
 package geometries;
 
-import Primitives.Point;
-import Primitives.Vector;
-import Primitives.Ray;
+import primitives.Point;
+import primitives.Vector;
+import primitives.Ray;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -30,7 +30,7 @@ class TriangleTest {
     }
 
     /**
-     * Test method for {@link geometries.Triangle#findIntersections(Primitives.Ray)}.
+     * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
      * This method tests the findIntersections() method of the Triangle class.
      * It checks if the method returns the correct intersection points between a ray and the triangle.
      */

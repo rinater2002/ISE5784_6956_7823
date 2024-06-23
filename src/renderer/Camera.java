@@ -1,12 +1,12 @@
 package renderer;
 
-import Primitives.Point;
-import Primitives.Ray;
-import Primitives.Vector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.MissingResourceException;
 
-import static Primitives.Util.isZero;
+import static primitives.Util.isZero;
 
 /**
  * The Camera class represents a camera in 3D space with position, orientation,

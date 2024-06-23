@@ -1,11 +1,11 @@
 package geometries;
 
 
-import static Primitives.Util.isZero;
+import static primitives.Util.isZero;
 
-import Primitives.Point;
-import Primitives.Ray;
-import Primitives.Vector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 

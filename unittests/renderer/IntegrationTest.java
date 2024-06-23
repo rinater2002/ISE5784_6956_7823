@@ -5,8 +5,8 @@ import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import org.junit.jupiter.api.Test;
-import Primitives.Point;
-import Primitives.Vector;
+import primitives.Point;
+import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

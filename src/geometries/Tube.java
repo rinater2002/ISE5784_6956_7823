@@ -1,11 +1,11 @@
 package geometries;
-import Primitives.Point;
-import Primitives.Ray;
-import Primitives.Vector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
-import static Primitives.Util.isZero;
+import static primitives.Util.isZero;
 
 public class Tube extends RadialGeometry {
     public double radius;

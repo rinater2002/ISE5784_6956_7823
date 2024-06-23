@@ -1,8 +1,5 @@
 package geometries;
 
-import Primitives.Point;
-import Primitives.Vector;
-
 public abstract class RadialGeometry implements Geometry {
     protected double radius;
 
