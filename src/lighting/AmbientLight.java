@@ -4,10 +4,9 @@ import primitives.Color;
 import primitives.Double3;
 
 public class AmbientLight {
-    private final Color intensity;
-
     // Static final field NONE representing no ambient light
     public static final AmbientLight NONE = new AmbientLight(Color.BLACK, 0.0);
+    private final Color intensity;
 
     /**
      * Constructor for AmbientLight that takes a Color and a 3Double attenuation factor.

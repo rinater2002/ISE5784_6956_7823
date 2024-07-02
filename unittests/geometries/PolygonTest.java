@@ -1,17 +1,17 @@
 package geometries;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
-
 import primitives.Point;
 import primitives.Vector;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Testing Polygons
+ *
  * @author Dan
  */
-public class PolygonTest{
+public class PolygonTest {
     /**
      * Delta value for accuracy when comparing the numbers of type 'double' in
      * assertEquals
@@ -92,8 +92,8 @@ public class PolygonTest{
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here - using a quad
         Point[] pts =
-                { new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0),
-                        new Point(-1, 1, 1) };
+                {new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0),
+                        new Point(-1, 1, 1)};
         Polygon pol = new Polygon(pts);
         // ensure there are no exceptions
         assertDoesNotThrow(() -> pol.getNormal(new Point(0, 0, 1)), "");

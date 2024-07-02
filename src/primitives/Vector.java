@@ -4,6 +4,7 @@ public class Vector extends Point {
 
     /**
      * Constructor for Vector with individual coordinates
+     *
      * @param x coordinate value for x axis
      * @param y coordinate value for y axis
      * @param z coordinate value for z axis
@@ -18,6 +19,7 @@ public class Vector extends Point {
 
     /**
      * Constructor for Vector with a Double3 object
+     *
      * @param xyz a Double3 object representing the coordinates
      * @throws IllegalArgumentException if the vector is zero
      */
@@ -30,6 +32,7 @@ public class Vector extends Point {
 
     /**
      * Adds another vector to this vector
+     *
      * @param v the vector to be added
      * @return a new vector which is the sum of this vector and the given vector
      */
@@ -39,6 +42,7 @@ public class Vector extends Point {
 
     /**
      * Scales this vector by a scalar value
+     *
      * @param scalar the scalar value to scale the vector
      * @return a new vector which is this vector scaled by the given scalar
      */
@@ -48,6 +52,7 @@ public class Vector extends Point {
 
     /**
      * Computes the dot product of this vector and another vector
+     *
      * @param v the other vector
      * @return the dot product of the two vectors
      */
@@ -57,6 +62,7 @@ public class Vector extends Point {
 
     /**
      * Computes the cross product of this vector and another vector
+     *
      * @param v the other vector
      * @return a new vector which is the cross product of this vector and the given vector
      */
@@ -69,6 +75,7 @@ public class Vector extends Point {
 
     /**
      * Computes the squared length of this vector
+     *
      * @return the squared length of this vector
      */
     public double lengthSquared() {
@@ -77,6 +84,7 @@ public class Vector extends Point {
 
     /**
      * Computes the length of this vector
+     *
      * @return the length of this vector
      */
     public double length() {
@@ -85,6 +93,7 @@ public class Vector extends Point {
 
     /**
      * Normalizes this vector
+     *
      * @return a new vector which is the normalized version of this vector
      * @throws IllegalArgumentException if the vector is zero
      */

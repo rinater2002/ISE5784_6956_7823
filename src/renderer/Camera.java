@@ -26,6 +26,7 @@ public class Camera implements Cloneable {
 
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
+
     private Camera() {
     }
 
@@ -157,9 +158,11 @@ public class Camera implements Cloneable {
 
         return new Ray(p0, vIJ);
     }
+
     /**
      * Renders the image by tracing rays through each pixel and calculating their color.
      * Currently, throws an UnsupportedOperationException.
+     *
      * @throws UnsupportedOperationException if imageWriter or rayTracer are not set
      */
     public Camera renderImage() {
@@ -185,8 +188,8 @@ public class Camera implements Cloneable {
      *
      * @param nx number of pixels in the x direction
      * @param ny number of pixels in the y direction
-     * @param i x coordinate of the pixel
-     * @param j y coordinate of the pixel
+     * @param i  x coordinate of the pixel
+     * @param j  y coordinate of the pixel
      */
     private void castRay(int nx, int ny, int i, int j) {
         Ray ray = constructRay(nx, ny, i, j);
@@ -198,7 +201,7 @@ public class Camera implements Cloneable {
      * Prints a grid on the image with the specified interval and color.
      *
      * @param interval the interval between the grid lines
-     * @param color the color of the grid lines
+     * @param color    the color of the grid lines
      * @throws UnsupportedOperationException if imageWriter is not set
      */
     public Camera printGrid(int interval, Color color) {
@@ -216,7 +219,7 @@ public class Camera implements Cloneable {
                 }
             }
         }
-        try{
+        try {
             return (Camera) this.clone();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
@@ -262,6 +265,7 @@ public class Camera implements Cloneable {
 
     /**
      * Sets the image writer for the camera.
+     *
      * @param imageWriter the image writer
      * @return the camera instance
      */
@@ -272,6 +276,7 @@ public class Camera implements Cloneable {
 
     /**
      * Sets the ray tracer for the camera.
+     *
      * @param rayTracerBase the ray tracer
      * @return the camera instance
      */
@@ -283,15 +288,17 @@ public class Camera implements Cloneable {
     /**
      * Builder class for creating Camera objects.
      */
-    public static class Builder{
+    public static class Builder {
 
         private final Camera camera;
+
         /**
          * Default constructor that initializes the camera with a new Camera object.
          */
         public Builder() {
             this.camera = new Camera();
         }
+
         /**
          * Constructor that initializes the builder with a given Camera object.
          *
@@ -374,8 +381,10 @@ public class Camera implements Cloneable {
             this.camera.distance = distance;
             return this;
         }
+
         /**
          * Sets the image writer for the camera.
+         *
          * @param imageWriter the image writer
          * @return the builder instance
          */
@@ -386,6 +395,7 @@ public class Camera implements Cloneable {
 
         /**
          * Sets the ray tracer for the camera.
+         *
          * @param rayTracerBase the ray tracer
          * @return the builder instance
          */
@@ -427,7 +437,8 @@ public class Camera implements Cloneable {
                 throw new MissingResourceException(RENDERING_ERROR, CAMERA_CLASS, "View plane distance");
             }
             if (this.camera.imageWriter == null || this.camera.rayTracerBase == null) {
-                throw new UnsupportedOperationException("ImageWriter and RayTracer must be set");            }
+                throw new UnsupportedOperationException("ImageWriter and RayTracer must be set");
+            }
 
             // Ensure vRight is normalized (should already be normalized)
             this.camera.vRight = this.camera.vTo.crossProduct(this.camera.vUp).normalize();

@@ -20,6 +20,7 @@ public abstract class RayTracerBase {
     public RayTracerBase(Scene scene) {
         this.scene = scene;
     }
+
     /**
      * Abstract method to trace a ray and get the color at the point of intersection.
      *

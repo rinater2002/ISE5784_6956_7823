@@ -26,6 +26,7 @@ public class Plane implements Geometry {
 
     /**
      * Constructor for Plane using three points.
+     *
      * @param v0 first point on the plane
      * @param v1 second point on the plane
      * @param v2 third point on the plane
@@ -44,7 +45,8 @@ public class Plane implements Geometry {
 
     /**
      * Constructor for Plane using a point and a normal vector.
-     * @param point a point on the plane
+     *
+     * @param point  a point on the plane
      * @param normal the normal vector to the plane
      */
     public Plane(Point point, Vector normal) {
@@ -63,6 +65,7 @@ public class Plane implements Geometry {
 
     /**
      * Getter for the normal vector.
+     *
      * @return the normal vector of the plane
      */
     public Vector getNormal() {
@@ -71,6 +74,7 @@ public class Plane implements Geometry {
 
     /**
      * Getter for the normal vector at a specific point on the plane.
+     *
      * @param point a point on the plane
      * @return the normal vector of the plane
      */
@@ -105,8 +109,7 @@ public class Plane implements Geometry {
         if (t <= 0) {
             return null;
         }
-        Point point = P0.add(v.scale(t));
-        return List.of(point);
+        return List.of(ray.getPoint(t));
 
     }
 

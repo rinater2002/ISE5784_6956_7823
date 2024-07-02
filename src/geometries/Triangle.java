@@ -1,4 +1,5 @@
 package geometries;
+
 import primitives.Point;
 import primitives.Vector;
 
@@ -73,7 +74,7 @@ public class Triangle extends Polygon {
             return result;
         }
 
-        return super.findIntersections(ray);
+        return null;
     }
 }
 

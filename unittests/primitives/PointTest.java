@@ -2,7 +2,9 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 /**
  * Unit tests for primitives.Point class
  */
@@ -13,10 +15,10 @@ class PointTest {
 
     /**
      * Test method for {@link primitives.Point#subtract(Point)} .
-     *      This method tests the subtract() method of the Point class.
-     *      It checks if the method returns the correct Point after subtracting another Point from it.
-     *      If the result is incorrect, the test fails.
-     *      It also checks if an IllegalArgumentException is thrown when subtracting a Point from itself.
+     * This method tests the subtract() method of the Point class.
+     * It checks if the method returns the correct Point after subtracting another Point from it.
+     * If the result is incorrect, the test fails.
+     * It also checks if an IllegalArgumentException is thrown when subtracting a Point from itself.
      */
 
     @Test
@@ -31,10 +33,10 @@ class PointTest {
     }
 
     /**
-     *  Test method for {@link primitives.Point#add(primitives.Vector)}.
-     *      This method tests the add() method of the Point class.
-     *      It checks if the method returns the correct Point after adding a Vector to it.
-     *      If the result is incorrect, the test fails.
+     * Test method for {@link primitives.Point#add(primitives.Vector)}.
+     * This method tests the add() method of the Point class.
+     * It checks if the method returns the correct Point after adding a Vector to it.
+     * If the result is incorrect, the test fails.
      */
     @Test
     void testAdd() {
@@ -46,11 +48,11 @@ class PointTest {
     }
 
     /**
-     *      Test method for {@link primitives.Point#distanceSquared(Point)} .
-     *      This method tests the distanceSquared() method of the Point class.
-     *      It checks if the method returns the correct squared distance between the Point and another Point.
-     *      If the result is incorrect, the test fails.
-     *      It also checks if the method returns 0.0 when finding the squared distance between a Point and itself.
+     * Test method for {@link primitives.Point#distanceSquared(Point)} .
+     * This method tests the distanceSquared() method of the Point class.
+     * It checks if the method returns the correct squared distance between the Point and another Point.
+     * If the result is incorrect, the test fails.
+     * It also checks if the method returns 0.0 when finding the squared distance between a Point and itself.
      */
     @Test
     void testDistanceSquared() {

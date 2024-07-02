@@ -1,8 +1,8 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Vector;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
@@ -14,20 +14,24 @@ import static primitives.Util.alignZero;
  */
 public class Sphere implements Geometry {
 
-    /** The center point of the sphere. */
+    /**
+     * The center point of the sphere.
+     */
     final Point center;
 
-    /** The radius of the sphere. */
+    /**
+     * The radius of the sphere.
+     */
     final double radius;
 
     /**
      * Constructs a sphere with the specified center point and radius.
      *
-     * @param center1 the center point of the sphere
+     * @param center the center point of the sphere
      * @param radius the radius of the sphere
      */
-    public Sphere(Point center1, double radius) {
-        center = center1;
+    public Sphere(Point center, double radius) {
+        this.center = center;
         this.radius = radius;
     }
 

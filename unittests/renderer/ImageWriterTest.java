@@ -3,8 +3,6 @@ package renderer;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * ImageWriterTest is a test class for the ImageWriter class.
  * It creates an image with a grid and verifies the image creation.

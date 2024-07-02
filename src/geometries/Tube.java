@@ -1,4 +1,5 @@
 package geometries;
+
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -8,13 +9,14 @@ import java.util.List;
 import static primitives.Util.isZero;
 
 public class Tube extends RadialGeometry {
-    public double radius;
     final Ray ray;
+    public double radius;
 
     /**
      * constructor
+     *
      * @param radius type double
-     * @param ray1 type ray
+     * @param ray1   type ray
      */
 
     public Tube(double radius, Ray ray1) {
@@ -23,6 +25,7 @@ public class Tube extends RadialGeometry {
         this.radius = radius;
         ray = ray1;
     }
+
     /**
      * Returns the normal vector to the tube at a given point.
      * The normal is calculated as the vector perpendicular to the tube's surface at the given point.
@@ -45,6 +48,7 @@ public class Tube extends RadialGeometry {
         Vector n = point.subtract(startP);
         return n.normalize();
     }
+
     @Override
     public List<Point> findIntersections(Ray ray) {
         return null;

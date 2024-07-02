@@ -33,6 +33,7 @@ public class SimpleRayTracer extends RayTracerBase {
 
     /**
      * Calculates the color at the given intersection point.
+     *
      * @param point the intersection point
      * @return the color at the intersection point
      */

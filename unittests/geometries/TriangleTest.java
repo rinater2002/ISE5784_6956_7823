@@ -1,13 +1,14 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
-import primitives.Ray;
 import org.junit.jupiter.api.Test;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class TriangleTest {
 
@@ -19,11 +20,14 @@ class TriangleTest {
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // Create a vector with equal components
-        double sqrt3 = Math.sqrt(1d/3);
+        double sqrt3 = Math.sqrt(1d / 3);
         Vector n = new Vector(sqrt3, sqrt3, sqrt3);
 
         // Create a new triangle and check its normal
-        Triangle triangle = new Triangle(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
+        Triangle triangle = new Triangle(
+                new Point(1, 0, 0),
+                new Point(0, 1, 0),
+                new Point(0, 0, 1));
         Point point = new Point(1, 0, 0);
         //TC01: simple test
         assertEquals(n, triangle.getNormal(point), "Triangle's normal is not correct");
@@ -38,7 +42,9 @@ class TriangleTest {
     void testFindIntersections() {
 
 
-        Triangle triangle = new Triangle(new Point(0, 0, 1), new Point(1, 0, 0),
+        Triangle triangle = new Triangle(
+                new Point(0, 0, 1),
+                new Point(1, 0, 0),
                 new Point(-1, 0, 0));
 
         // ============ Equivalence Partitions Tests ==============
@@ -63,7 +69,10 @@ class TriangleTest {
 
         // TC04: Ray's line intersects Triangle's edge  (0 points)
         assertNull(
-                triangle.findIntersections((new Ray(new Point(0.5, -2, 0), new Vector(0, 1, 0)))),
+                triangle.findIntersections((
+                        new Ray(
+                                new Point(0.5, -2, 0),
+                                new Vector(0, 1, 0)))),
                 "Ray's line intersects Triangle's edge - should return null");
 
         // TC05: Ray's line intersects Triangle's vertex  (0 points)

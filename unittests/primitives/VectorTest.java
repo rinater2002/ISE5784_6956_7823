@@ -2,8 +2,8 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import static primitives.Util.isZero;
 import static org.junit.jupiter.api.Assertions.*;
+import static primitives.Util.isZero;
 
 /**
  * Unit tests for {@link Vector} class.
@@ -19,16 +19,16 @@ class VectorTest {
      */
     @Test
     void testAdd() {
-        Vector v1         = new Vector(1, 2, 3);
+        Vector v1 = new Vector(1, 2, 3);
         Vector v1Opposite = new Vector(-1, -2, -3);
-        Vector v2         = new Vector(-2, -4, -6);
+        Vector v2 = new Vector(-2, -4, -6);
 
         // ============ Equivalence Partitions Tests ==============
-        assertEquals(new Vector(-1, -2, -3), v1.add(v2),"Vector adding not correct");
+        assertEquals(new Vector(-1, -2, -3), v1.add(v2), "Vector adding not correct");
 
         // =============== Boundary Values Tests ==================
         assertThrows(IllegalArgumentException.class,
-                () ->v1.add(v1Opposite),
+                () -> v1.add(v1Opposite),
                 "ERROR: Vector + -itself does not throw an exception");
     }
 

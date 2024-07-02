@@ -1,17 +1,21 @@
 package geometries;
-import primitives.*;
 
-public class Cylinder extends Tube{
+import primitives.Point;
+import primitives.Ray;
+import primitives.Util;
+import primitives.Vector;
+
+public class Cylinder extends Tube {
     public double height;
 
     /**
      * Constructor for Cylinder
      *
      * @param radius the radius of the cylinder
-     * @param ray the central axis of the cylinder
+     * @param ray    the central axis of the cylinder
      * @param height the height of the cylinder
      */
-    public Cylinder(double radius,Ray ray, double height) {
+    public Cylinder(double radius, Ray ray, double height) {
         super(radius, ray);
         if (Util.alignZero(height) <= 0) {
             throw new IllegalArgumentException("Height must be greater than zero");

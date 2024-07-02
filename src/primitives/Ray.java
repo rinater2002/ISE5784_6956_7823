@@ -10,7 +10,8 @@ public class Ray {
 
     /**
      * Constructor for Ray
-     * @param head The starting point of the ray
+     *
+     * @param head      The starting point of the ray
      * @param direction The direction vector of the ray
      * @throws IllegalArgumentException if the direction vector has zero length
      */
@@ -21,6 +22,7 @@ public class Ray {
 
     /**
      * Override equals method to compare two Ray objects
+     *
      * @param obj The object to compare with
      * @return true if the given object is equal to this Ray, false otherwise
      */
@@ -36,6 +38,7 @@ public class Ray {
 
     /**
      * Override toString method to provide a string representation of the Ray
+     *
      * @return String representation of the Ray
      */
     @Override
@@ -53,11 +56,12 @@ public class Ray {
     public Vector getDirection() {
         return direction;
     }
-    public Point getPoint(double delta ) {
+
+    public Point getPoint(double delta) {
         if (isZero(delta)) {
             return head;
         }
-        return head.add(direction.normalize().scale(delta));
+        return head.add(direction.scale(delta));
     }
 
     /**
@@ -66,7 +70,7 @@ public class Ray {
      * @param points the list of points
      * @return the closest point to the ray's origin, or null if the list is empty
      */
-    public Point findClosestPoint(List<Point> points){
+    public Point findClosestPoint(List<Point> points) {
         if (points == null || points.isEmpty()) {
             return null;
         }

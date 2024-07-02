@@ -24,6 +24,7 @@ public class Scene {
     }
     // ***************** Setters ********************** //
     // ** all setters implements the Builder Design Pattern **//
+
     /**
      * Sets the background color of the scene.
      *
