@@ -12,7 +12,7 @@ import static primitives.Util.isZero;
 /**
  * plane class is a polygon represented by a point and a vector
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
     /**
      * A point that is on the plane
@@ -80,7 +80,7 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 
         Point P0 = ray.getHead();
         Vector v = ray.getDirection();
@@ -106,7 +106,7 @@ public class Plane implements Geometry {
             return null;
         }
         Point point = P0.add(v.scale(t));
-        return List.of(point);
+        return List.of(new GeoPoint(this, ray.getPoint(t)));
 
     }
 

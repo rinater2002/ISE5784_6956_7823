@@ -1,7 +1,7 @@
 package geometries;
 
-public abstract class RadialGeometry implements Geometry {
-    protected double radius;
+public abstract class RadialGeometry extends Geometry {
+    protected final double radius;
 
     /**
      * Constructor to initialize the radius of the radial geometry.
@@ -18,6 +18,7 @@ public abstract class RadialGeometry implements Geometry {
     public double getRadius() {
         return radius;
     }
+
 
 
 }
