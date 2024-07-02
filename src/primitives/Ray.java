@@ -1,8 +1,12 @@
 package primitives;
 
+import geometries.Intersectable;
+import geometries.Intersectable.GeoPoint;
+
 import java.util.List;
 
 import static primitives.Util.isZero;
+
 
 public class Ray {
     private final Point head; // Starting point of the ray
@@ -61,7 +65,7 @@ public class Ray {
         if (isZero(delta)) {
             return head;
         }
-        return head.add(direction.scale(delta));
+        return head.add(direction.normalize().scale(delta));
     }
 
     /**
@@ -71,19 +75,31 @@ public class Ray {
      * @return the closest point to the ray's origin, or null if the list is empty
      */
     public Point findClosestPoint(List<Point> points) {
-        if (points == null || points.isEmpty()) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new Intersectable.GeoPoint(null, p)).toList()).point;
+    }
+
+
+    public Intersectable.GeoPoint findClosestGeoPoint(List<Intersectable.GeoPoint> pointList) {
+        //the list is empty
+        if (pointList == null) {
             return null;
         }
-        Point closestPoint = null;
-        double closestDistance = Double.MAX_VALUE;
-        for (Point point : points) {
-            double distance = head.distance(point);
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestPoint = point;
+        double minDistance = Double.MAX_VALUE;
+        double pointDistance;
+
+        Intersectable.GeoPoint closestPoint = null;
+
+        for (var geoPoint : pointList) {
+            pointDistance = head.distanceSquared(geoPoint.point);
+            if (pointDistance < minDistance) {
+                minDistance = pointDistance;
+                closestPoint = geoPoint;
             }
         }
-
         return closestPoint;
     }
+
+
+
 }

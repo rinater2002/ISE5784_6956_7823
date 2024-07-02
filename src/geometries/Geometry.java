@@ -1,5 +1,6 @@
 package geometries;
-
+import primitives.Color;
+import primitives.Material;
 import primitives.Point;
 import primitives.Vector;
 
@@ -7,13 +8,48 @@ import primitives.Vector;
  * Interface for geometric objects in a 3D space.
  * Provides a method to get the normal vector at a given point on the geometry.
  */
-public interface Geometry extends Intersectable {
+public abstract class Geometry extends Intersectable {
+
+    protected Color emission = Color.BLACK;
+    private Material material = new Material();
+
 
     /**
-     * Calculates the normal vector to the geometry at the given point.
-     *
-     * @param point the point on the geometry where the normal is to be calculated
-     * @return the normal vector to the geometry at the given point
+     *get Material
      */
-    Vector getNormal(Point point);
+    public Material getMaterial() {
+        return material;
+    }
+
+    /**
+     *set Material
+     */
+    public Geometry setMaterial(Material material) {
+        this.material = material;
+        return this;
+    }
+
+    /**
+     * get Emission
+     * @return light emission of the geometry
+     */
+    public Color getEmission() {
+        return emission;
+    }
+    /**
+     *set Emission
+     */
+    public Geometry setEmission(Color emission) {
+        this.emission = emission;
+        return this;
+    }
+
+
+    /**
+     * @param point
+     * @return normal from the point to geometrries
+     * @return normal from the point to geometries
+     */
+    public abstract Vector getNormal(Point point);
+
 }

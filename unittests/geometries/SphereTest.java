@@ -29,7 +29,7 @@ class SphereTest {
     }
 
     /**
-     * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
+     * Test method for {@link Intersectable#findIntersections(Ray)}.
      * This method tests the findIntersections() method of the Sphere class.
      * It checks if the method returns the correct intersection points between a ray and the sphere.
      */

@@ -1,8 +1,8 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
+import primitives.Ray;
 
 import java.util.List;
 
@@ -12,27 +12,23 @@ import static primitives.Util.alignZero;
  * The {@code Sphere} class represents a sphere in 3D space, defined by a center
  * point and a radius. This class implements the {@code Geometry} interface.
  */
-public class Sphere implements Geometry {
+public class Sphere extends RadialGeometry {
 
-    /**
-     * The center point of the sphere.
-     */
+    /** The center point of the sphere. */
     final Point center;
 
-    /**
-     * The radius of the sphere.
-     */
-    final double radius;
+
 
     /**
      * Constructs a sphere with the specified center point and radius.
      *
-     * @param center the center point of the sphere
+     * @param center1 the center point of the sphere
      * @param radius the radius of the sphere
      */
-    public Sphere(Point center, double radius) {
-        this.center = center;
-        this.radius = radius;
+    public Sphere(Point center1, double radius) {
+        super(radius);
+        center = center1;
+
     }
 
     /**
@@ -72,19 +68,19 @@ public class Sphere implements Geometry {
      * are found; {@code null} if there are no intersections
      */
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        Point P0 = ray.getHead();        // Get the start point of the ray
-        Vector v = ray.getDirection();   // Get the direction of the ray
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        Point P0 = ray.getHead();        //get point of start ray
+        Vector v = ray.getDirection();      //get dir of ray
 
-        if (P0.equals(center)) { // If the start of the ray is the sphere's center
-            return List.of(center.add(v.scale(radius)));
+        if (P0.equals(center)) {    //if start of ray equal to the sphere's center
+            return List.of(new GeoPoint(this, ray.getPoint(radius)));
         }
 
         Vector U = center.subtract(P0);
+
         double tm = alignZero(v.dotProduct(U));
         double d = alignZero(Math.sqrt(U.lengthSquared() - tm * tm));
-
-        // No intersections: the ray direction is above the sphere
+        // no intersections : the ray direction is above the sphere
         if (d >= radius) {
             return null;
         }
@@ -96,15 +92,15 @@ public class Sphere implements Geometry {
         if (t1 > 0 && t2 > 0) {
             Point P1 = ray.getPoint(t1);
             Point P2 = ray.getPoint(t2);
-            return List.of(P1, P2);
+            return List.of(new GeoPoint(this, P1), new GeoPoint(this, P2));
         }
         if (t1 > 0) {
             Point P1 = ray.getPoint(t1);
-            return List.of(P1);
+            return List.of(new GeoPoint(this, P1));
         }
         if (t2 > 0) {
             Point P2 = ray.getPoint(t2);
-            return List.of(P2);
+            return List.of(new GeoPoint(this, P2));
         }
         return null;
     }

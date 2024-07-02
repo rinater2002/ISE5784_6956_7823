@@ -59,7 +59,7 @@ class PlaneTest {
     }
 
     /**
-     * Test method for {@link Plane#findIntersections(Ray)}.
+     * Test method for {@link Intersectable#findIntersections(Ray)}.
      * This method tests the findIntersections() method of the Plane class.
      * It checks if the method returns the correct intersection points between a ray and the plane.
      */

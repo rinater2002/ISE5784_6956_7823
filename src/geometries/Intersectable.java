@@ -10,14 +10,52 @@ import java.util.List;
  * that can be intersected by a ray. Implementing classes should provide
  * the method to find intersections between a given ray and the geometric object.
  */
-public interface Intersectable {
+public abstract class Intersectable {
+    public List<Point> findIntersections(Ray ray)
+    {
+        List<GeoPoint> geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream()
+                .map(gp -> gp.point)
+                .toList();
+    }
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersectionsHelper(ray);
 
-    /**
-     * Finds all intersection points between a given ray and the geometric object
-     * that implements this interface.
-     *
-     * @param ray the ray for which to find intersections
-     * @return a list of intersection points, which may be empty if no intersections are found
+    }
+
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+
+    public static class GeoPoint {
+        public Geometry geometry;
+        public Point point;
+        /**
+     *constructor
      */
-    List<Point> findIntersections(Ray ray);
+    public GeoPoint(Geometry geometry, Point point) {
+        this.geometry = geometry;
+        this.point = point;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        GeoPoint other = (GeoPoint)obj;
+        boolean sameGeometryType = geometry.getClass().equals(other.geometry.getClass());
+        return sameGeometryType && point.equals(other.point);
+    }
+    @Override
+    public String toString() {
+        return "GeoPoint{" +
+                "geometry=" + geometry +
+                ", point=" + point +
+                '}';
+    }
+
+    };
 }
