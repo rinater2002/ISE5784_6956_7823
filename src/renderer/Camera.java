@@ -22,31 +22,12 @@ public class Camera implements Cloneable {
     private double width = 0.0; // The width of the view plane
     private double height = 0.0; // The height of the view plane
     private double distance = 0.0; // The distance from the camera to the view plane
-    private Point centerPoint;
-
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
 
     private Camera() {
     }
 
-    /**
-     * Constructor for Camera.
-     *
-     * @param p0  The position of the camera.
-     * @param vTo The forward direction vector.
-     * @param vUp The up direction vector.
-     * @throws IllegalArgumentException If vTo and vUp are not orthogonal.
-     */
-    public Camera(Point p0, Vector vTo, Vector vUp) throws IllegalArgumentException {
-        if (!isZero(vTo.dotProduct(vUp))) {
-            throw new IllegalArgumentException("constructor threw - vUp and vTo are not orthogonal");
-        }
-        this.p0 = p0;
-        this.vUp = vUp.normalize();
-        this.vTo = vTo.normalize();
-        this.vRight = vTo.crossProduct(vUp).normalize();
-    }
 
     /**
      * Returns a builder instance for creating a Camera object.
@@ -118,6 +99,14 @@ public class Camera implements Cloneable {
      */
     public double getDistance() {
         return distance;
+    }
+
+    public ImageWriter getImageWriter() {
+        return imageWriter;
+    }
+
+    public RayTracerBase getRayTracerBase() {
+        return rayTracerBase;
     }
 
     public void writeToImage() {
@@ -228,40 +217,6 @@ public class Camera implements Cloneable {
     }
 
 
-    /**
-     * Sets the size of the view plane.
-     *
-     * @param width  The width of the view plane.
-     * @param height The height of the view plane.
-     * @return The current Camera instance for method chaining.
-     * @throws IllegalArgumentException If the provided width or height are non-positive.
-     */
-    public Camera setVpSize(double width, double height) {
-        if (width <= 0) {
-            throw new IllegalArgumentException("Width must be positive.");
-        }
-        if (height <= 0) {
-            throw new IllegalArgumentException("Height must be positive.");
-        }
-        this.width = width;
-        this.height = height;
-        return this;
-    }
-
-    /**
-     * Sets the distance from the camera to the view plane.
-     *
-     * @param distance The distance from the camera to the view plane.
-     * @return The current Camera instance for method chaining.
-     * @throws IllegalArgumentException If the provided distance is non-positive.
-     */
-    public Camera setVPDistance(double distance) {
-        if (distance <= 0) {
-            throw new IllegalArgumentException("Distance must be positive.");
-        }
-        this.distance = distance;
-        return this;
-    }
 
     /**
      * Sets the image writer for the camera.

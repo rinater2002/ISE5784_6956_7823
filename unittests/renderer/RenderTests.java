@@ -11,17 +11,13 @@ import primitives.*;
 import renderer.*;
 import scene.Scene;
 
-/**
- * Test rendering a basic image
- * @author Dan
- */
 public class RenderTests {
     /** Scene of the tests */
     private final Scene          scene  = new Scene("Test scene");
     /** Camera builder of the tests */
     private final Camera.Builder camera = Camera.getBuilder()
             .setRayTracer(new SimpleRayTracer(scene))
-            .setLocation(Point.ZERO).setDirection(new Point(0, 0, -1), Vector.Y)
+            .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1), new Vector(0,1,0))
             .setVpDistance(100)
             .setVpSize(500, 500);
 
@@ -60,15 +56,22 @@ public class RenderTests {
         scene.geometries.add( // center
                 new Sphere(new Point(0, 0, -100), 50),
                 // up left
-                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
+                new Triangle(new Point(-100, 0, -100),
+                        new Point(0, 100, -100),
+                        new Point(-100, 100, -100))
                         .setEmission(new Color(GREEN)),
                 // down left
-                new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100))
+                new Triangle(new Point(-100, 0, -100),
+                        new Point(0, -100, -100),
+                        new Point(-100, -100, -100))
                         .setEmission(new Color(RED)),
                 // down right
-                new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))
+                new Triangle(new Point(100, 0, -100),
+                        new Point(0, -100, -100),
+                        new Point(100, -100, -100))
                         .setEmission(new Color(BLUE)));
-        scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2, 0.2, 0.2))); //
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE),
+                new Double3(0.2, 0.2, 0.2)));
 
         camera
                 .setImageWriter(new ImageWriter("color render test", 1000, 1000))

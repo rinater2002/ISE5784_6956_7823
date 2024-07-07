@@ -76,11 +76,13 @@ class TriangleTest {
                 "Ray's line intersects Triangle's edge - should return null");
 
         // TC05: Ray's line intersects Triangle's vertex  (0 points)
-        assertNull(triangle.findIntersections((new Ray(new Point(1, -1, 0), new Vector(0, 1, 0))))
+        assertNull(triangle.findIntersections((new Ray(new Point(1, -1, 0),
+                        new Vector(0, 1, 0))))
                 , "Ray's line intersects Triangle's vertex - should return null");
 
         // TC06: Ray's line intersects Triangle's edge outside Triangle  (0 points)
-        assertNull(triangle.findIntersections((new Ray(new Point(2, -2, 0), new Vector(0, 1, 0))))
+        assertNull(triangle.findIntersections((new Ray(new Point(2, -2, 0),
+                        new Vector(0, 1, 0))))
                 , "Ray's line intersects Triangle's outside Triangle - should return null");
     }
 }
