@@ -45,6 +45,7 @@ public class Point {
                 && this.xyz.equals(other.xyz); // Compare xyz for equality
     }
 
+
     /**
      * Override toString method to provide a string representation of the Point
      *

@@ -113,4 +113,17 @@ public class Color {
 
     @Override
     public String toString() { return "rgb:" + rgb; }
+
+    /**
+     * Compare two colors if they are in the same variety
+     * The range of the variety is 1 for each r,g,b.
+     *
+     * @param color The color to compare with
+     * @return If in the same variety or not (Boolean)
+     */
+    public Boolean isEqual(Color color){
+        return !(Math.abs(rgb.d1 - color.rgb.d1) > 10) &&
+                !(Math.abs(rgb.d2 - color.rgb.d2) > 10) &&
+                !(Math.abs(rgb.d3 - color.rgb.d3) > 10);
+    }
 }
