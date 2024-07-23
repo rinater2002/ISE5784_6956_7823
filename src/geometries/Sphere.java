@@ -12,6 +12,7 @@ import static primitives.Util.isZero;
 public class Sphere extends RadialGeometry {
     private final Point center;
 
+    
     public Sphere(Point center, double radius) {
         super(radius);
         this.center = center;
