@@ -125,7 +125,7 @@ class CameraRayIntersectionsIntegrationTest {
         for (int i = 0; i < nX; i++) {
             for (int j = 0; j < nY; j++) {
                 var ray = cam.constructRay(nX, nY, j, i); // create ray in the view plane
-                var intersections = geo.findIntersections(ray);
+                var intersections = geo.findIntsersections(ray);
 
                 if (intersections != null) {
                     count += intersections.size(); // count the total number of points

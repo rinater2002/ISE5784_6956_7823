@@ -1,34 +1,65 @@
 package lighting;
+
 import primitives.Color;
 import primitives.Point;
 import primitives.Util;
 import primitives.Vector;
 
-public class SpotLight extends PointLight {
-    private Vector direction;
-    public SpotLight(Color intensity, Point position, Vector direction) {
-        super(intensity, position);
-        this.direction = direction.normalize();
+import static primitives.Util.alignZero;
+
+public class SpotLight extends PointLight{
+    private Vector dir;
+    private double NarrowBeam=1;
+    /**
+     * constructor for the intensity
+     *
+     * @param color     of the intensity of the source of the light
+     * @param direction
+     */
+    public SpotLight(Color color, Point position, Vector direction) {
+        super(color, position);
+        this.dir = direction.normalize();
+    }
+    /**
+     * setkC function
+     *
+     * @param kC
+     * @return
+     */
+    public SpotLight setkC(double kC) {
+        super.setkC(kC);
+        return this;
+    }
+
+    /**
+     * setkL function
+     * @param kL
+     * @return
+     */
+    public SpotLight setkL(double kL) {
+        super.setkL(kL);
+        return this;
+    }
+
+    /**
+     * setkQ function
+     * @param kQ
+     * @return
+     */
+    public SpotLight setkQ(double kQ) {
+        super.setkQ(kQ);
+        return this;
+    }
+
+    public SpotLight setNarrowBeam(double NarrowBeam) {
+        this.NarrowBeam=NarrowBeam;
+        return this;
     }
     @Override
     public Color getIntensity(Point p) {
-        double proj = direction.dotProduct(getL(p)); //direction*(psition-p) , projection of light on point
-        //if the light source doesn't hit the point return color black
-        if (Util.isZero(proj))
-            return Color.BLACK;
-
-        double factor = Math.max(0, proj);
-        Color i0 = super.getIntensity(p);
-
-        // i0*(max(0,direction*(position-p))/(kC+d*kL+ds*kQ)
-        return i0.scale(factor);
-    }
-
-    @Override
-    public Vector getL(Point p) {
-        if (p.equals(position)) {
-            return null;
-        }
-        return p.subtract(position).normalize();
+        double cos = alignZero(dir.dotProduct(getL(p)));
+        return NarrowBeam != 1
+                ? super.getIntensity(p).scale(Math.pow(Math.max(0, dir.dotProduct(getL(p))), NarrowBeam))
+                : super.getIntensity(p).scale(Math.max(0, dir.dotProduct(getL(p))));
     }
 }

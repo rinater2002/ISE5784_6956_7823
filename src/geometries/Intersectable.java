@@ -1,61 +1,60 @@
 package geometries;
-
 import primitives.Point;
 import primitives.Ray;
-
 import java.util.List;
+import java.util.Objects;
 
-/**
- * The {@code Intersectable} interface defines a contract for geometric objects
- * that can be intersected by a ray. Implementing classes should provide
- * the method to find intersections between a given ray and the geometric object.
- */
 public abstract class Intersectable {
-    public List<Point> findIntersections(Ray ray)
-    {
-        List<GeoPoint> geoList = findGeoIntersections(ray);
-        return geoList == null ? null
-                : geoList.stream()
-                .map(gp -> gp.point)
-                .toList();
-    }
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersectionsHelper(ray);
-
+    /**
+     * @param ray=Ray object type
+     * @return a list of intersection points between the ray and the geometry
+     */
+    public List<Point> findIntsersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
     }
 
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
-    public static class GeoPoint {
-        public Geometry geometry;
-        public Point point;
-        /**
-     *constructor
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersectionsHelper(ray);
+    }
+
+    /**
+     * this class has been written because we want to know the specific geometry the ray cross it over
+     * because we added the emission light for each geometry and if we want to calculate the color at the point
+     * we have to mind the geometry's color (this class is PDS)
      */
-    public GeoPoint(Geometry geometry, Point point) {
-        this.geometry = geometry;
-        this.point = point;
-    }
+    public static class GeoPoint {
+        public final Geometry geometry;
+        public final Point point;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+        /**
+         * constractor
+         * @param geometry=geometry
+         * @param point=point
+         */
+        public GeoPoint(Geometry geometry, Point point) {
+            this.geometry = geometry;
+            this.point = point;
         }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        GeoPoint other = (GeoPoint)obj;
-        boolean sameGeometryType = geometry.getClass().equals(other.geometry.getClass());
-        return sameGeometryType && point.equals(other.point);
-    }
-    @Override
-    public String toString() {
-        return "GeoPoint{" +
-                "geometry=" + geometry +
-                ", point=" + point +
-                '}';
-    }
 
-    };
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            GeoPoint geoPoint = (GeoPoint) o;
+            return Objects.equals(geometry, geoPoint.geometry) && point.equals(geoPoint.point);
+        }
+
+
+        @Override
+        public String toString() {
+            return "GeoPoint{" +
+                    "geometry=" + geometry +
+                    ", point=" + point +
+                    '}';
+        }
+
+    }
 }

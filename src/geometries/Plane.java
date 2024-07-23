@@ -3,115 +3,87 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
+import static primitives.Util.*;
 import java.util.List;
 
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+public class Plane extends Geometry{
+    Point q;
+    Vector normal;
 
-/**
- * plane class is a polygon represented by a point and a vector
- */
-public class Plane extends Geometry {
 
     /**
-     * A point that is on the plane
+     * parameters constructors
+     * @param myq=q
+     * @param myNormal=normal
      */
-    protected Point q;
+    public Plane(Point myq, Vector myNormal) {
+        this.q = myq;
+        this.normal = myNormal.normalize();
+    }
+
+
 
     /**
-     * A vector that is vertical to the plane
+     * parameters constructors
+     * @param point1 point number 1
+     * @param point2 point number 2
+     * @param point3 point number 3
      */
-    protected Vector normal;
-
-    /**
-     * Constructor for Plane using three points.
-     * @param v0 first point on the plane
-     * @param v1 second point on the plane
-     * @param v2 third point on the plane
-     */
-    public Plane(Point v0, Point v1, Point v2) {
-        // Compute two vectors from the three points
-        Vector v0v1 = v1.subtract(v0);
-        Vector v0v2 = v2.subtract(v0);
-
-        // Compute the cross product of these vectors to get the normal vector
-        this.normal = v0v1.crossProduct(v0v2).normalize();
-
-        // Set one of the points as the reference point on the plane
-        this.q = v0;
+    public Plane (Point point1,Point point2,Point point3){
+        Vector v1=point2.subtract(point1);
+        Vector v2=point3.subtract(point1);
+        normal =v1.crossProduct(v2).normalize();
+        q=point1;
     }
 
     /**
-     * Constructor for Plane using a point and a normal vector.
-     * @param point a point on the plane
-     * @param normal the normal vector to the plane
+     * @return normal
      */
-    public Plane(Point point, Vector normal) {
-        this.q = point; // Set the reference point
-        this.normal = normal.normalize(); // Normalize and set the normal vector
+    Vector getNormal(){
+        return normal;
     }
 
-    /**
-     * getting the point that is on the plane
-     *
-     * @return the point
-     */
-    public Point getQ() {
-        return q;
-    }
+    public Vector getNormal(Point point) {return normal;}
 
     /**
-     * Getter for the normal vector.
-     * @return the normal vector of the plane
-     */
-    public Vector getNormal() {
-        return this.normal; // Return the normal vector
-    }
-
-    /**
-     * Getter for the normal vector at a specific point on the plane.
-     * @param point a point on the plane
-     * @return the normal vector of the plane
+     * @param ray=Ray object type
+     * @return a list of intersection points between the ray and the geometry
      */
     @Override
-    public Vector getNormal(Point point) {
-        return this.normal; // Return the normal vector (same for all points on the plane)
-    }
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        Point P0 = ray.getHead(); // according to the illustration P0 is the same point of the ray's P0 (that's why the definition))
+        Vector v = ray.getDirection(); // according to the illustration v is the same vector of the ray's vector (that's why the definition))
 
-    @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        if (this.q.equals(P0)) { // if the ray starting from the plane it doesn't cut the plane at all
+            return null; // so return null
+        }
 
-        Point P0 = ray.getHead();
-        Vector v = ray.getDirection();
-        Vector n = normal;
+        Vector n = this.normal; // the normal to the plane
 
-        if (q.equals(P0)) {//if start of ray equal to q0
+        double nv = n.dotProduct(v); // the formula's denominator of "t" (t =(n*(Q-P0))/nv)
+
+        // ray is lying on the plane axis
+        if (isZero(nv)) { // can't divide by zero (nv is the denominator)
             return null;
         }
-        Vector P0_Q0 = q.subtract(P0);
-        //numerator
-        double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
+
+        Vector Q0_P0 = this.q.subtract(P0);
+        double nP0Q0 = alignZero(n.dotProduct(Q0_P0));
+
+        // t should be bigger than 0
         if (isZero(nP0Q0)) {
             return null;
         }
-        //denominator
-        double nv = alignZero(n.dotProduct(v));
-        // ray is lying in the plane axis
-        if (isZero(nv)) {
-            return null;
-        }
+
         double t = alignZero(nP0Q0 / nv);
+
+        // t should be bigger than 0
         if (t <= 0) {
             return null;
         }
-        Point point = P0.add(v.scale(t));
+
+        // "this" - the specific geometry, "rey.getPoint(t)" - the point that the ray
+        // cross the geometry
         return List.of(new GeoPoint(this, ray.getPoint(t)));
-
     }
-
-    /**
-     * Interface Geometry requires implementation of getNormal method.
-     * This can be implemented later based on the requirements of the Geometry interface.
-     */
 }

@@ -1,32 +1,21 @@
 package primitives;
-
-/**
- * Util class is used for some internal utilities, e.g. controlling accuracy
- *
- * @author Dan
- */
+import java.util.Random;
+/** Util class is used for some internal utilities, e.g. controlling accuracy
+ * @author Dan */
 public final class Util {
-    /**
-     * It is binary, equivalent to ~1/1,000,000,000,000 in decimal (12 digits)
-     */
+    /** It is binary, equivalent to ~1/1,000,000,000,000 in decimal (12 digits) */
     private static final int ACCURACY = -40;
+    private static final Random random = new Random();
+    /** Don't let anyone instantiate this class. */
+    private Util() {}
 
-    /**
-     * Don't let anyone instantiate this class.
-     */
-    private Util() {
-    }
-
-    /**
-     * {@code double} data format in memory (bit level):<br>
+    /** {@code double} data format in memory (bit level):<br>
      * seee eeee eeee (1.)mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>
      * 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa<br>
      * the number is m+2^e where 1&lt;=m&lt;2<br>
      * NB: exponent is stored "normalized" (i.e. always positive by adding 1023)<br>
-     *
-     * @param num the original number
-     * @return the exponent value
-     */
+     * @param  num the original number
+     * @return     the exponent value */
     private static int getExp(double num) {
         // 1. doubleToRawLongBits: "convert" the stored number to set of bits
         // 2. Shift all 52 bits to the right (removing mantissa)
@@ -35,47 +24,42 @@ public final class Util {
         return (int) ((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
     }
 
-    /**
-     * Checks whether the number is [almost] zero
-     *
-     * @param number the number to check
-     * @return true if the number is zero or almost zero, false otherwise
-     */
+    /** Checks whether the number is [almost] zero
+     * @param  number the number to check
+     * @return        true if the number is zero or almost zero, false otherwise */
     public static boolean isZero(double number) {
         return getExp(number) < ACCURACY;
     }
 
-    /**
-     * Aligns the number to zero if it is almost zero
-     *
-     * @param number the number to align
-     * @return 0.0 if the number is very close to zero, the number itself
-     * otherwise
-     */
-    public static double alignZero(double number) {
-        return isZero(number) ? 0.0 : number;
-    }
+    /** Aligns the number to zero if it is almost zero
+     * @param  number the number to align
+     * @return        0.0 if the number is very close to zero, the number itself
+     *                otherwise */
+    public static double alignZero(double number) { return isZero(number) ? 0.0 : number; }
 
-    /**
-     * Check whether two numbers have the same sign
-     *
-     * @param n1 1st number
-     * @param n2 2nd number
-     * @return true if the numbers have the same sign
-     */
+    /** Check whether two numbers have the same sign
+     * @param  n1 1st number
+     * @param  n2 2nd number
+     * @return    true if the numbers have the same sign */
     public static boolean compareSign(double n1, double n2) {
         return (n1 < 0 && n2 < 0) || (n1 > 0 && n2 > 0);
     }
 
-    /**
-     * Provide a real random number in range between min and max
-     *
-     * @param min value (included)
-     * @param max value (excluded)
-     * @return the random value
-     */
+    /** Provide a real random number in range between min and max
+     * @param  min value (included)
+     * @param  max value (excluded)
+     * @return     the random value */
     public static double random(double min, double max) {
         return Math.random() * (max - min) + min;
     }
 
+    /**
+     * provide randome (-1,1)
+     *
+     * @return random number between -1 and 1
+     */
+    public static int randomSign() {
+
+        return random.nextBoolean() ? 1 : -1;
+    }
 }

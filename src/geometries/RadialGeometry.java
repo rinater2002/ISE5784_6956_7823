@@ -1,26 +1,22 @@
 package geometries;
 
-public abstract class RadialGeometry extends Geometry {
-    protected final double radius;
+import primitives.Point;
+import primitives.Vector;
+
+public abstract class RadialGeometry extends Geometry{
+
+    final protected double radius;
 
     /**
-     * Constructor to initialize the radius of the radial geometry.
-     *
-     * @param radius the radius of the radial geometry
+     * parameters construcrtor
+     * @param myRadius=radius
      */
-    public RadialGeometry(double radius) {
-        this.radius = radius;
+    public RadialGeometry(double myRadius) {
+        this.radius = myRadius;
     }
 
-    /**
-     * getting the radius of geometry
-     *
-     * @return the radius
-     */
-    public double getRadius() {
-        return radius;
+    @Override
+    public Vector getNormal(Point p) {
+        return null;
     }
-
-
-
 }

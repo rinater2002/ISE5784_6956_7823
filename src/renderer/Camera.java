@@ -2,408 +2,287 @@ package renderer;
 
 import primitives.Color;
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
+import primitives.Ray;
+
 
 import java.util.MissingResourceException;
+import java.util.MissingResourceException;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-/**
- * The Camera class represents a camera in 3D space with position, orientation,
- * and properties such as view plane width, height, and distance from the view plane.
- */
+
 public class Camera implements Cloneable {
 
-    private Point p0;           // The position of the camera
-    private Vector vUp;         // The up direction vector of the camera
-    private Vector vTo;         // The forward direction vector of the camera
-    private Vector vRight;      // The right direction vector of the camera
-    private double width = 0.0; // The width of the view plane
-    private double height = 0.0; // The height of the view plane
-    private double distance = 0.0; // The distance from the camera to the view plane
-    private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
+    /**
+     * starting position
+     */
+    private Point p0;
 
+    /**
+     * Vector to the right of the Camera, up, and where it was pointing.
+     */
+    private Vector v_t0;
+    private Vector v_up;
+    private Vector v_right;
+
+    private double width = 0.0;
+    private double height = 0.0;
+    private double distance = 0.0;
+
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracer;
+
+    /**
+     * constractor of camera
+     */
     private Camera() {
     }
 
-
     /**
-     * Returns a builder instance for creating a Camera object.
+     * getter for Camera starting position.
      *
-     * @return A new Builder instance.
-     */
-    public static Builder getBuilder() {
-        return new Builder();
-    }
-
-    /**
-     * Gets the position of the camera.
-     *
-     * @return The position of the camera as a Point object.
+     * @return Camera starting position.
      */
     public Point getP0() {
         return p0;
     }
 
     /**
-     * Gets the up direction vector of the camera.
+     * getter for Camera direction.
      *
-     * @return The up direction vector of the camera.
+     * @return Camera direction.
      */
-    public Vector getvUp() {
-        return vUp;
+    public Vector getV_t0() {
+        return v_t0;
     }
 
     /**
-     * Gets the forward direction vector of the camera.
+     * getter for above the Camera.
      *
-     * @return The forward direction vector of the camera.
+     * @return above the Camera.
      */
-    public Vector getvTo() {
-        return vTo;
+    public Vector getV_up() {
+        return v_up;
     }
 
     /**
-     * Gets the right direction vector of the camera.
+     * getter for view plane height.
      *
-     * @return The right direction vector of the camera.
-     */
-    public Vector getvRight() {
-        return vRight;
-    }
-
-    /**
-     * Gets the width of the view plane.
-     *
-     * @return The width of the view plane.
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * Gets the height of the view plane.
-     *
-     * @return The height of the view plane.
+     * @return view plane height.
      */
     public double getHeight() {
         return height;
     }
 
     /**
-     * Gets the distance from the camera to the view plane.
+     * getter for view plane width.
      *
-     * @return The distance from the camera to the view plane.
+     * @return view plane width.
+     */
+    public double getWidth() {
+        return width;
+    }
+
+    /**
+     * getter for view plane distance.
+     *
+     * @return view plane distance.
      */
     public double getDistance() {
         return distance;
     }
 
-    public ImageWriter getImageWriter() {
-        return imageWriter;
+    public static Builder getBuilder() {
+        return new Builder();
     }
 
-    public RayTracerBase getRayTracerBase() {
-        return rayTracerBase;
-    }
-
-    public void writeToImage() {
-        imageWriter.writeToImage();
-    }
-
-    /**
-     * Constructs a ray through a specific pixel on the view plane.
-     *
-     * @param nX The number of horizontal pixels.
-     * @param nY The number of vertical pixels.
-     * @param j  The pixel column index.
-     * @param i  The pixel row index.
-     * @return The constructed ray through the specified pixel.
-     */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        // Calculate the center point of the view plane
-        Point pC = p0.add(vTo.scale(distance));
+        Point pc = p0.add(v_t0.scale(distance));     // center of the view plane
+        double Ry = height / (double) nY;                      // Ratio - pixel height
+        double Rx = width / (double) nX;                       // Ratio - pixel width
 
-        // Calculate the ratio of the view plane
-        double rY = height / nY;
-        double rX = width / nX;
+        double yJ = alignZero(-(i - ((double) nY - 1) / 2) * Ry);       // move pc Yi pixels
+        double xJ = alignZero((j - ((double) nX - 1) / 2) * Rx);        // move pc Xj pixels
 
-        // Calculate the pixel's center point on the view plane
-        double yI = -(i - (nY - 1) / 2.0) * rY;
-        double xJ = (j - (nX - 1) / 2.0) * rX;
+        Point PIJ = pc;
+        if (!isZero(xJ)) PIJ = PIJ.add(v_right.scale(xJ));
+        if (!isZero(yJ)) PIJ = PIJ.add(v_up.scale(yJ));
 
-        Point pIJ = pC;
-        if (!isZero(xJ)) {
-            pIJ = pIJ.add(vRight.scale(xJ));
+        return new Ray(p0, PIJ.subtract(p0));
+    }
+
+    @Override
+    public Camera clone() {
+        try {
+            Camera clone = (Camera) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
         }
-        if (!isZero(yI)) {
-            pIJ = pIJ.add(vUp.scale(yI));
-        }
-
-        // Create the ray from the camera to the pixel
-        Vector vIJ = pIJ.subtract(p0);
-
-        return new Ray(p0, vIJ);
     }
 
     /**
-     * Renders the image by tracing rays through each pixel and calculating their color.
-     * Currently, throws an UnsupportedOperationException.
-     *
-     * @throws UnsupportedOperationException if imageWriter or rayTracer are not set
+     * nested inner class
      */
-    public Camera renderImage() {
-        if (this.imageWriter == null || this.rayTracerBase == null) {
-            throw new UnsupportedOperationException("ImageWriter and RayTracer must be set");
+    public static class Builder {
+        private final Camera camera = new Camera();
+
+        /**
+         * Set the location of the camera.
+         *
+         * @param My_p0 the location point of the camera.
+         * @return the Builder object itself for method chaining.
+         * @throws IllegalArgumentException if the location is null
+         */
+        public Builder setLocation(Point My_p0) {
+            if (My_p0 == null) {
+                throw new IllegalArgumentException("p0 cannot be null");
+            }
+            camera.p0 = My_p0;
+            return this;
         }
 
-        int nx = imageWriter.getNx();
-        int ny = imageWriter.getNy();
+        /**
+         * Set the direction vectors of the camera.
+         *
+         * @param my_v_t0 the forward direction vector.
+         * @param my_v_up the up direction vector.
+         * @return the Builder object itself for method chaining.
+         * @throws IllegalArgumentException if the vectors are null or not orthogonal
+         */
+        public Builder setDirection(Vector my_v_t0, Vector my_v_up) throws IllegalArgumentException {
+            if (my_v_t0 == null || my_v_up == null) {
+                throw new IllegalArgumentException("Direction vectors cannot be null");
+            }
+            if (!isZero(my_v_t0.dotProduct(my_v_up))) {
+                throw new IllegalArgumentException("vTo and vUp must be orthogonal");
+            }
+            camera.v_t0 = my_v_t0.normalize();
+            camera.v_up = my_v_up.normalize();
+            return this;
+        }
 
-        for (int i = 0; i < nx; i++) {
-            for (int j = 0; j < ny; j++) {
-                castRay(nx, ny, i, j);
+        /**
+         * Set the size of the view plane.
+         *
+         * @param my_width  the width of the view plane.
+         * @param my_height the height of the view plane.
+         * @return the Builder object itself for method chaining.
+         * @throws IllegalArgumentException if the dimensions aren't positive
+         */
+        public Builder setVpSize(double my_width, double my_height) throws IllegalArgumentException {
+            if (my_width <= 0 || my_height <= 0) {
+                throw new IllegalArgumentException("View plane dimensions must be positive");
+            }
+            camera.width = my_width;
+            camera.height = my_height;
+            return this;
+        }
+
+        /**
+         * Set the distance between the camera and the view plane.
+         *
+         * @param my_distance the distance between the camera and the view plane.
+         * @return the Builder object itself for method chaining.
+         * @throws IllegalArgumentException if the distance is not positive
+         */
+        public Builder setVpDistance(double my_distance) throws IllegalArgumentException {
+            if (my_distance <= 0) {
+                throw new IllegalArgumentException("View plane distance must be positive");
+            }
+            camera.distance = my_distance;
+            return this;
+        }
+
+        public Builder setImageWriter(ImageWriter imageWriter) {
+            camera.imageWriter = imageWriter;
+            return this;
+        }
+
+        public Builder setRayTracer(RayTracerBase rayTracer) {
+            camera.rayTracer = rayTracer;
+            return this;
+        }
+
+        /**
+         * Builds the Camera object.
+         *
+         * @return the constructed Camera object.
+         * @throws MissingResourceException if any required field is missing.
+         */
+        public Camera build() throws MissingResourceException {
+
+            String missingData = "Missing rendering data";
+
+            camera.v_right = camera.v_t0.crossProduct(camera.v_up).normalize();
+
+            if (camera.p0 == null) {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "location(p0)");
+            }
+            if (camera.v_t0 == null || camera.v_up == null || camera.v_right == null) {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "direction vectors");
+            }
+            if (camera.width == 0.0 || camera.height == 0.0) {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "view plane size");
+            }
+            if (camera.distance == 0.0) {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "view plane distance");
+            }
+            if (camera.imageWriter == null) {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "imageWriter");
+            }
+            if (camera.rayTracer == null) {
+                throw new MissingResourceException(missingData, Camera.class.getName(), "ray Tracer");
+            }
+
+
+            return (Camera) camera.clone();
+        }
+    }
+
+    public Camera renderImage() {
+        if (this.imageWriter == null)
+            throw new UnsupportedOperationException("Missing imageWriter");
+        if (this.rayTracer == null)
+            throw new UnsupportedOperationException("Missing rayTracerBase");
+
+        for (int i = 0; i < this.imageWriter.getNy(); i++) {
+            for (int j = 0; j < this.imageWriter.getNy(); j++) {
+                Color color = castRay(j,i);
+                this.imageWriter.writePixel(j, i, color);
             }
         }
-
-        imageWriter.writeToImage();
         return this;
     }
-
-    /**
-     * Casts a ray through a specific pixel and colors it.
-     *
-     * @param nx number of pixels in the x direction
-     * @param ny number of pixels in the y direction
-     * @param i  x coordinate of the pixel
-     * @param j  y coordinate of the pixel
-     */
-    private void castRay(int nx, int ny, int i, int j) {
-        Ray ray = constructRay(nx, ny, i, j);
-        Color color = rayTracerBase.traceRay(ray);
-        imageWriter.writePixel(i, j, color);
+    private Color castRay(int j,int i){
+        Ray ray = constructRay(
+                this.imageWriter.getNx(),
+                this.imageWriter.getNy(),
+                j,
+                i);
+        return this.rayTracer.traceRay(ray);
     }
 
-    /**
-     * Prints a grid on the image with the specified interval and color.
-     *
-     * @param interval the interval between the grid lines
-     * @param color    the color of the grid lines
-     * @throws UnsupportedOperationException if imageWriter is not set
-     */
     public Camera printGrid(int interval, Color color) {
-        if (this.imageWriter == null) {
-            throw new UnsupportedOperationException("ImageWriter must be set");
-        }
-
-        int nx = imageWriter.getNx();
-        int ny = imageWriter.getNy();
-
-        for (int i = 0; i < nx; i++) {
-            for (int j = 0; j < ny; j++) {
+        //=== running on the view plane===//
+        for (int i = 0; i < imageWriter.getNx(); i++) {
+            for (int j = 0; j < imageWriter.getNy(); j++) {
+                //=== create the net ===//
                 if (i % interval == 0 || j % interval == 0) {
                     imageWriter.writePixel(i, j, color);
                 }
             }
         }
-        try {
-            return (Camera) this.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-
-
-    /**
-     * Sets the image writer for the camera.
-     *
-     * @param imageWriter the image writer
-     * @return the camera instance
-     */
-    public Camera setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
+        imageWriter.writeToImage();
         return this;
     }
-
-    /**
-     * Sets the ray tracer for the camera.
-     *
-     * @param rayTracerBase the ray tracer
-     * @return the camera instance
-     */
-    public Camera setRayTracer(RayTracerBase rayTracerBase) {
-        this.rayTracerBase = rayTracerBase;
-        return this;
+    public void writeToImage() {
+        this.imageWriter.writeToImage();
     }
 
-    /**
-     * Builder class for creating Camera objects.
-     */
-    public static class Builder {
 
-        private final Camera camera;
-
-        /**
-         * Default constructor that initializes the camera with a new Camera object.
-         */
-        public Builder() {
-            this.camera = new Camera();
-        }
-
-        /**
-         * Constructor that initializes the builder with a given Camera object.
-         *
-         * @param camera The Camera object to initialize the builder with.
-         */
-        public Builder(Camera camera) {
-            this.camera = camera;
-        }
-
-        /**
-         * Sets the position of the camera.
-         *
-         * @param p0 The position of the camera.
-         * @return The current Builder instance for chaining.
-         * @throws IllegalArgumentException If the provided point is null.
-         */
-        public Builder setLocation(Point p0) {
-            if (p0 == null) {
-                throw new IllegalArgumentException("Camera position (p0) cannot be null.");
-            }
-            this.camera.p0 = p0;
-            return this;
-        }
-
-        /**
-         * Sets the direction of the camera.
-         *
-         * @param vTo The forward direction vector.
-         * @param vUp The up direction vector.
-         * @return The current Builder instance for chaining.
-         * @throws IllegalArgumentException If the provided vectors are null or not orthogonal.
-         */
-        public Builder setDirection(Vector vTo, Vector vUp) {
-            if (vTo == null || vUp == null) {
-                throw new IllegalArgumentException("Direction vectors (vTo and vUp) cannot be null.");
-            }
-            // Check if the vectors are orthogonal
-            double dotProduct = vTo.dotProduct(vUp);
-            double epsilon = 1e-10;
-            if (Math.abs(dotProduct) > epsilon) {
-                throw new IllegalArgumentException("Direction vectors (vTo and vUp) must be orthogonal.");
-            }
-            this.camera.vTo = vTo.normalize();
-            this.camera.vUp = vUp.normalize();
-            this.camera.vRight = vTo.crossProduct(vUp).normalize();
-            return this;
-        }
-
-        /**
-         * Sets the size of the view plane.
-         *
-         * @param width  The width of the view plane.
-         * @param height The height of the view plane.
-         * @return The current Builder instance for chaining.
-         * @throws IllegalArgumentException If the provided width or height are non-positive.
-         */
-        public Builder setVpSize(double width, double height) {
-            if (width <= 0) {
-                throw new IllegalArgumentException("Width must be positive.");
-            }
-            if (height <= 0) {
-                throw new IllegalArgumentException("Height must be positive.");
-            }
-            this.camera.width = width;
-            this.camera.height = height;
-            return this;
-        }
-
-        /**
-         * Sets the distance from the camera to the view plane.
-         *
-         * @param distance The distance from the camera to the view plane.
-         * @return The current Builder instance for chaining.
-         * @throws IllegalArgumentException If the provided distance is non-positive.
-         */
-        public Builder setVpDistance(double distance) {
-            if (distance <= 0) {
-                throw new IllegalArgumentException("Distance must be positive.");
-            }
-            this.camera.distance = distance;
-            return this;
-        }
-
-        /**
-         * Sets the image writer for the camera.
-         *
-         * @param imageWriter the image writer
-         * @return the builder instance
-         */
-        public Builder setImageWriter(ImageWriter imageWriter) {
-            this.camera.imageWriter = imageWriter;
-            return this;
-        }
-
-        /**
-         * Sets the ray tracer for the camera.
-         *
-         * @param rayTracerBase the ray tracer
-         * @return the builder instance
-         */
-        public Builder setRayTracer(RayTracerBase rayTracerBase) {
-            this.camera.rayTracerBase = rayTracerBase;
-            return this;
-        }
-
-        /**
-         * Builds and returns the Camera object.
-         *
-         * @return The constructed Camera object.
-         * @throws MissingResourceException If any required camera field is missing.
-         */
-        public Camera build() {
-            // Constants for exception messages
-            final String RENDERING_ERROR = "Missing rendering data";
-            final String CAMERA_CLASS = "Camera";
-
-            if (this.camera.p0 == null) {
-                throw new MissingResourceException(RENDERING_ERROR, CAMERA_CLASS, "Camera position (p0)");
-            }
-            if (this.camera.vTo == null) {
-                throw new MissingResourceException(RENDERING_ERROR, CAMERA_CLASS, "Camera direction (vTo)");
-            }
-            if (this.camera.vUp == null) {
-                throw new MissingResourceException(RENDERING_ERROR, CAMERA_CLASS, "Camera direction (vUp)");
-            }
-            if (this.camera.vRight == null) {
-                throw new MissingResourceException(RENDERING_ERROR, CAMERA_CLASS, "Camera direction (vRight)");
-            }
-            if (this.camera.width <= 0) {
-                throw new MissingResourceException(RENDERING_ERROR, CAMERA_CLASS, "View plane width");
-            }
-            if (this.camera.height <= 0) {
-                throw new MissingResourceException(RENDERING_ERROR, CAMERA_CLASS, "View plane height");
-            }
-            if (this.camera.distance <= 0) {
-                throw new MissingResourceException(RENDERING_ERROR, CAMERA_CLASS, "View plane distance");
-            }
-            if (this.camera.imageWriter == null || this.camera.rayTracerBase == null) {
-                throw new UnsupportedOperationException("ImageWriter and RayTracer must be set");
-            }
-
-            // Ensure vRight is normalized (should already be normalized)
-            this.camera.vRight = this.camera.vTo.crossProduct(this.camera.vUp).normalize();
-
-            try {
-                return (Camera) this.camera.clone();
-            } catch (CloneNotSupportedException e) {
-                throw new AssertionError("Clone not supported for Camera", e);
-            }
-        }
-    }
 
 }

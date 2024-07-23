@@ -3,30 +3,25 @@ package renderer;
 import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
-import geometries.Intersectable.GeoPoint;
 
-/**
- * RayTracerBase is an abstract class that represents a ray tracer.
- * It contains a scene and provides a method to trace a ray and get the color of the intersection.
- */
-public abstract class RayTracerBase {
-
+public  abstract class RayTracerBase {
     protected Scene scene;
-
     /**
-     * Constructor for RayTracerBase.
-     *
-     * @param scene the scene to be traced
+     * Constructor that get a scene
+     * @param scene
      */
-    public RayTracerBase(Scene scene) {
+    public RayTracerBase(Scene scene){
         this.scene = scene;
     }
 
     /**
-     * Abstract method to trace a ray and get the color at the point of intersection.
+     * trace the ray and calculate the rey's intersection point color
+     * and any other object (or the background if the rey's intersection point
+     * doesn't exist)
      *
-     * @param ray the ray to be traced
-     * @return the color at the intersection point
+     * @param ray
+     * @return
      */
-    public abstract Color traceRay(Ray ray);
+    abstract Color traceRay(Ray ray);
+
 }

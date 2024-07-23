@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.List;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
@@ -7,8 +8,6 @@ import static primitives.Util.isZero;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
-import java.util.List;
 
 /**
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
@@ -81,45 +80,39 @@ public class Polygon extends Geometry {
             throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
       }
    }
-   /**
-    * Getter for the normal vector at a specific point on the plane.
-    * @param point a point on the plane
-    * @return the normal vector of the plane
-    */
+
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
    @Override
    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-      List<GeoPoint> result = plane.findGeoIntersections(ray);
-      if (result == null) {
-         return result;
-      }
 
-      Point P0 = ray.getHead();
+      List<GeoPoint> intersections = plane.findGeoIntersections(ray);
+
+      // Check if the plane of the polygon intersects with the ray
+      // if there's no intersection with the plane - there's no intersection with the polygon.
+      if (intersections == null) {
+         return null;
+      }
+      Point p0 = ray.getHead();
       Vector v = ray.getDirection();
 
-      Point P1 = vertices.get(1);
-      Point P2 = vertices.get(0);
+      Vector v1 = vertices.get(1).subtract(p0);
+      Vector v2 = vertices.get(0).subtract(p0);
 
-      Vector v1 = P1.subtract(P0);
-      Vector v2 = P2.subtract(P0);
-
-      double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+      double sign = v.dotProduct(v1.crossProduct(v2));
 
       if (isZero(sign)) {
          return null;
       }
-
       boolean positive = sign > 0;
 
-      //iterate through all vertices of the polygon
       for (int i = vertices.size() - 1; i > 0; --i) {
          v1 = v2;
-         v2 = vertices.get(i).subtract(P0);
-
+         v2 = vertices.get(i).subtract(p0);
          sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-         if (isZero(sign)) {
+
+         if (isZero(sign)){
             return null;
          }
 
@@ -128,6 +121,6 @@ public class Polygon extends Geometry {
          }
       }
 
-      return result;
+      return List.of(new GeoPoint(this, intersections.get(0).point));
    }
 }
