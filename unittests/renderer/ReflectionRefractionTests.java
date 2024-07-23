@@ -186,8 +186,8 @@ public class ReflectionRefractionTests {
     public void testBlurryGlass() {
 
         Vector vTo = new Vector(0, 1, 0);
-        Camera.Builder camera =Camera.getBuilder().setLocation(new Point(0,-230,0).add(vTo.scale(-13)))
-                .setDirection(vTo,new Vector(0,0,1))
+        Camera.Builder camera = Camera.getBuilder().setLocation(new Point(0, -230, 0).add(vTo.scale(-13)))
+                .setDirection(vTo, new Vector(0, 0, 1))
                 .setVpSize(200d, 200).setVpDistance(1000);
         ;
 
@@ -195,12 +195,12 @@ public class ReflectionRefractionTests {
 
         for (int i = -4; i < 6; i += 2) {
             scene.geometries.add(
-                    new Sphere(new Point(5 * i, -1.50, -3),3).setEmission(new Color(WHITE).reduce(4).reduce(2))
+                    new Sphere(new Point(5 * i, -1.50, -3), 3).setEmission(new Color(WHITE).reduce(4).reduce(2))
                             .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(80).setkT(0d)),
 
-                    new Sphere( new Point(5 * i, 5, 3),3).setEmission(new Color(BLUE).reduce(2))
+                    new Sphere(new Point(5 * i, 5, 3), 3).setEmission(new Color(BLUE).reduce(2))
                             .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(80).setkT(0d)),
-                    new Sphere(new Point(5 * i, -8, -8),3).setEmission(new Color(PINK).reduce(2))
+                    new Sphere(new Point(5 * i, -8, -8), 3).setEmission(new Color(PINK).reduce(2))
                             .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(80).setkT(0d)),
 
                     new Polygon(new Point(5 * i - 4, -5, -11), new Point(5 * i - 4, -5, 5), new Point(5 * i + 4, -5, 5),
@@ -233,95 +233,5 @@ public class ReflectionRefractionTests {
     }
 
 
-
-
-
 }
-/**
- @Test
- public void drawHouseWithSunReflectionAndShadow() {
- Scene scene = new Scene("House with Sun Reflection and Shadow");
 
- // House body
- scene.geometries.add(
- new Polygon(
- new Point(-50, -50, 0),
- new Point(50, -50, 0),
- new Point(50, 0, 0),
- new Point(-50, 0, 0)
- ).setEmission(new Color(150, 75, 0)) // Brown color
- .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
- );
-
- // Roof
- scene.geometries.add(
- new Triangle(
- new Point(-50, 0, 0),
- new Point(50, 0, 0),
- new Point(0, 50, 0)
- ).setEmission(new Color(255, 0, 0)) // Red color
- .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
- );
-
- // Door
- scene.geometries.add(
- new Polygon(
- new Point(-10, -50, 0),
- new Point(10, -50, 0),
- new Point(10, 0, 0),
- new Point(-10, 0, 0)
- ).setEmission(new Color(100, 50, 0)) // Dark brown color
- .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
- );
-
- // Windows
- /**
- scene.geometries.add(
- new Polygon(
- new Point(20, -20, 0),
- new Point(40, -20, 0),
- new Point(40, 20, 0),
- new Point(20, 20, 0)
- ).setEmission(new Color(30, 144, 255)) // Light blue color
- .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30).setkR(0.5))
- );
-
- // Sun
- scene.geometries.add(
- new Sphere(new Point(40, 20, -40), 30) //
- .setEmission(new Color(yellow)) //
- .setMaterial(new Material().setkD(0.7).setkS(0.1)
- .setnShininess(2).setkT(0.9))
- );
-
- // Ground plane for reflection
- scene.geometries.add(
- new Polygon(
- new Point(-100, -100, -50),
- new Point(100, -100, -50),
- new Point(100, 100, -50),
- new Point(-100, 100, -50)
- ).setEmission(new Color(20, 20, 20)) // Dark gray color
- .setMaterial(new Material().setkR(0.7).setkT(0.3))
- );
-
- // Add light source
- scene.lights.add(
- new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1))
- .setkL(4E-5).setkQ(2E-7));
-
- // Configure the camera and render the image
- Camera camera = Camera.getBuilder()
- .setLocation(new Point(0, 0, 100))
- .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
- .setVpDistance(100)
- .setVpSize(200, 200)
- .setImageWriter(new ImageWriter("houseWithSunReflectionAndShadow", 500, 500))
- .setRayTracer(new SimpleRayTracer(scene))
- .build();
-
- camera.renderImage();
- camera.writeToImage();
- }
-
- */
